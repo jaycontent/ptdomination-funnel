@@ -1,0 +1,33 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PT Domination//Masterclass//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ai-masterclass-jun-1-2026@ptdomination.com
+DTSTAMP:20260528T000000Z
+DTSTART;TZID=America/Los_Angeles:20260601T163000
+DTEND;TZID=America/Los_Angeles:20260601T173000
+SUMMARY:Free AI Masterclass for Fitness Coaches
+DESCRIPTION:Join Zoom: https://us02web.zoom.us/j/5173145585\n\nHow Online Fitness Coaches Are Using AI to Add $1K-$2K/Week\n\nOne click on the Zoom link above at 4:30 PM PST on Monday and you're in.\n\nBonuses are only available to live attendees.
+LOCATION:https://us02web.zoom.us/j/5173145585
+URL:https://us02web.zoom.us/j/5173145585
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Reminder: AI Masterclass tomorrow at 4:30 PM PST
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:AI Masterclass starts in 1 hour — join link is inside this event
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:AI Masterclass starts in 15 minutes — tap the Zoom link to join
+END:VALARM
+END:VEVENT
+END:VCALENDAR
