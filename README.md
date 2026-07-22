@@ -59,8 +59,24 @@ There is no Supabase Edge Function to deploy — everything runs inside the Next
    npm run build    # production build
    ```
 
-## Deploying
+## Deploying (Vercel)
 
-The repo is set up for Netlify (`netlify.toml` + `@netlify/plugin-nextjs`). Set the same
-five environment variables in the Netlify site settings. `SUPABASE_SERVICE_ROLE_KEY` and
-`ZAPIER_WEBHOOK_URL` must be set as **server-side** env vars (they are not `NEXT_PUBLIC_`).
+Next.js is natively supported by Vercel — no config file needed.
+
+1. Push this repo to GitHub, then **Import Project** at [vercel.com/new](https://vercel.com/new)
+   and select the repo. Vercel auto-detects Next.js.
+2. Add the same five environment variables in **Vercel → Project → Settings →
+   Environment Variables** (for Production, Preview, and Development as needed):
+
+   | Variable | Exposed to browser? |
+   | --- | --- |
+   | `NEXT_PUBLIC_SUPABASE_URL` | yes |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | yes |
+   | `SUPABASE_SERVICE_ROLE_KEY` | **no — server only** |
+   | `ZAPIER_WEBHOOK_URL` | **no — server only** |
+   | `NEXT_PUBLIC_SITE_URL` | yes |
+
+3. Deploy. The `/api/submit-lead` route runs automatically as a Vercel serverless function.
+
+`SUPABASE_SERVICE_ROLE_KEY` and `ZAPIER_WEBHOOK_URL` are **not** prefixed with
+`NEXT_PUBLIC_`, so they stay server-side and are never shipped to the browser.
