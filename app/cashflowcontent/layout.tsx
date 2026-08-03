@@ -8,14 +8,14 @@ export const metadata: Metadata = {
     title: 'Cash Flow Content — Brian Mark',
     description:
       'The system that grew over 6M followers & generated $50M in revenue. Join the waitlist.',
-    images: [{ url: '/image.png' }],
+    images: [{ url: '/og-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Cash Flow Content — Brian Mark',
     description:
       'The system that grew over 6M followers & generated $50M in revenue. Join the waitlist.',
-    images: [{ url: '/image.png' }],
+    images: [{ url: '/og-image.png' }],
   },
 };
 

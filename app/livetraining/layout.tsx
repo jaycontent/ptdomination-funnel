@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'How Online Fitness Coaches Are Using AI to Add $1K–$2K/Week — Without Working More Hours. Free 60-Minute Masterclass. Reserve your spot now.',
     images: [
       {
-        url: '/Screenshot_2026-04-12_at_4.43.27_PM.png',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'How Online Fitness Coaches Are Using AI to Add $1K–$2K/Week',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Free AI Masterclass for Fitness Coaches | PT Domination',
     description: 'How Online Fitness Coaches Are Using AI to Add $1K–$2K/Week — Without Working More Hours. Free 60-Minute Masterclass. Reserve your spot now.',
-    images: ['/Screenshot_2026-04-12_at_4.43.27_PM.png'],
+    images: ['/og-image.png'],
   },
 };
 

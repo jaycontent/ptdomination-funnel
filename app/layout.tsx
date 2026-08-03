@@ -8,11 +8,11 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'PT Domination — Free AI Masterclass for Fitness Coaches',
   description: 'How online fitness coaches are using AI + content systems to add $1K–2K/week.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://ptdomination.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://goptdomination.com'),
   openGraph: {
     images: [
       {
-        url: 'https://bolt.new/static/og_default.png',
+        url: '/og-image.png',
       },
     ],
   },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://bolt.new/static/og_default.png',
+        url: '/og-image.png',
       },
     ],
   },
