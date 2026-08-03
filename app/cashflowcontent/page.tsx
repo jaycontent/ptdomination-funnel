@@ -81,6 +81,8 @@ const CLOSING: string[] = [
 export default function CashFlowContentPage() {
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const hasLoadedVideo = useRef(false);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const headlineInnerRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (videoContainerRef.current && !hasLoadedVideo.current) {
@@ -102,6 +104,53 @@ export default function CashFlowContentPage() {
     return () => observer.disconnect();
   }, []);
 
+  // Keep the hero headline to exactly two lines by shrinking the font until the
+  // text fits in at most two line boxes. Re-runs on resize and after the web
+  // font loads (Inter changes text metrics once swapped in).
+  useEffect(() => {
+    const h1 = headlineRef.current;
+    const inner = headlineInnerRef.current;
+    if (!h1 || !inner) return;
+
+    const MAX_PX = 62;
+    const MIN_PX = 15;
+    let raf = 0;
+
+    // Count visual lines by distinct row tops — getClientRects() returns one
+    // rect per inline fragment (the accent spans split each line), so we can't
+    // just use its length.
+    const lineCount = () => {
+      const tops = new Set<number>();
+      const rects = inner.getClientRects();
+      for (let i = 0; i < rects.length; i++) tops.add(Math.round(rects[i].top));
+      return tops.size;
+    };
+
+    const fit = () => {
+      let size = MAX_PX;
+      h1.style.fontSize = size + "px";
+      while (lineCount() > 2 && size > MIN_PX) {
+        size -= 1;
+        h1.style.fontSize = size + "px";
+      }
+    };
+
+    const onResize = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(fit);
+    };
+
+    fit();
+    window.addEventListener("resize", onResize);
+    // @ts-ignore - fonts API not in older TS DOM libs
+    if (document.fonts?.ready) document.fonts.ready.then(fit).catch(() => {});
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   const scrollToWaitlist = () => {
     document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -121,9 +170,11 @@ export default function CashFlowContentPage() {
           <div className="logo-container">
             <Image src="/ptd-logo-sm.webp" alt="PT Domination" width={170} height={56} className="logo" />
           </div>
-          <h1>
-            The system that grew over <span className="accent">6M followers</span> &amp; generated{" "}
-            <span className="accent">$50M</span> in revenue.
+          <h1 ref={headlineRef}>
+            <span ref={headlineInnerRef} className="headline-inner">
+              The system that grew over <span className="accent">6M followers</span> &amp; generated{" "}
+              <span className="accent">$50M</span> in revenue.
+            </span>
           </h1>
           <p className="sub">
             For online business owners that want to create content to help them make more money.
@@ -308,12 +359,17 @@ export default function CashFlowContentPage() {
         .logo-container { margin-bottom: 34px; }
         .logo { display: inline-block; height: auto; }
         .hero h1 {
+          /* Fallback size; JS fits the exact size so it stays on two lines. */
           font-size: clamp(2rem, 5.2vw, 3.4rem);
           font-weight: 800;
           line-height: 1.12;
           color: var(--white);
           letter-spacing: -0.02em;
           margin-bottom: 20px;
+          text-wrap: balance;
+        }
+        .headline-inner {
+          display: inline;
         }
         .accent {
           background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dim) 100%);
