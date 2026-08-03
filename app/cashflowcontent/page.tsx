@@ -166,9 +166,6 @@ export default function CashFlowContentPage() {
               <span className="accent">$50M</span> in revenue.
             </span>
           </h1>
-          <p className="sub">
-            For online business owners that want to create content to help them make more money.
-          </p>
 
           <div className="video-wrapper">
             <div
@@ -191,7 +188,7 @@ export default function CashFlowContentPage() {
         {/* Eligibility */}
         <section className="eligibility reveal">
           <p>
-            For business owners doing at least <strong>$10,000 in revenue per month</strong>. You must
+            For business owners doing at least <strong>$5,000 in revenue per month</strong>. You must
             already have something to sell. We&apos;re not going to teach you offer creation. We are going
             to show you how to generate mass amounts of attention and then turn those eyeballs into paying
             customers consistently and predictably.
