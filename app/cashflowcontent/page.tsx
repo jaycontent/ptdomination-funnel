@@ -5,7 +5,7 @@ import Image from "next/image";
 import Script from "next/script";
 
 const WISTIA_MEDIA_ID = "3avlzggbbw";
-const TYPEFORM_URL = "https://brianmark.typeform.com/domsdmsai?embed=embed&typeform-welcome=0";
+const TYPEFORM_ID = "01KZ4TNDS7P0TBVW1Y4MJ8X1G1";
 
 const ANALYTICS_IMAGES = [
   "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529364/Photo_2026-07-24_12_52_42_PM_f8ozdn.jpg",
@@ -153,6 +153,7 @@ export default function CashFlowContentPage() {
         strategy="afterInteractive"
         type="module"
       />
+      <Script src="https://embed.typeform.com/next/embed.js" strategy="afterInteractive" />
 
       <div className="cfc-page">
         {/* Hero */}
@@ -199,12 +200,7 @@ export default function CashFlowContentPage() {
         {/* Waitlist (Typeform) */}
         <section id="waitlist" className="waitlist">
           <div className="typeform-wrapper">
-            <iframe
-              src={TYPEFORM_URL}
-              title="Join the Cash Flow Content waitlist"
-              frameBorder="0"
-              allow="camera; microphone; autoplay; encrypted-media;"
-            />
+            <div data-tf-live={TYPEFORM_ID}></div>
           </div>
         </section>
 
@@ -418,6 +414,7 @@ export default function CashFlowContentPage() {
           border: 1px solid var(--card-border);
           background: var(--card);
         }
+        .typeform-wrapper [data-tf-live] { width: 100%; height: 560px; }
         .typeform-wrapper iframe { width: 100%; height: 560px; display: block; border: 0; }
 
         /* Social proof */
