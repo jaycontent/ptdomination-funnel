@@ -81,6 +81,15 @@
   }
 }
 
+/* Prevent first-paint FOUC. This unlayered rule overrides the layered
+   `bg-background` above, so the very first render is the dark theme instead of
+   a white flash before each page's styled-jsx background applies. */
+html,
+body {
+  background-color: #030712;
+  color: #d1d5db;
+}
+
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
