@@ -210,12 +210,8 @@ export default function CashFlowContentPage() {
 
         {/* Social proof */}
         <section className="social-proof">
-          <div className="eyebrow reveal">SOCIAL PROOF</div>
+          <div className="eyebrow reveal">Learn the System Behind 6M+ Followers</div>
           <h2 className="reveal">Real Analytics. Real Results.</h2>
-          <p className="sp-sub reveal">
-            Below are screenshots from Brian and Cole&apos;s social media analytics across Instagram,
-            YouTube, Facebook, Snapchat, and TikTok.
-          </p>
           <div className="analytics-grid">
             {ANALYTICS_IMAGES.map((src, i) => (
               // eslint-disable-next-line @next/next/no-img-element
@@ -429,8 +425,9 @@ export default function CashFlowContentPage() {
         .eyebrow {
           color: var(--blue);
           font-weight: 800;
-          letter-spacing: 0.18em;
-          font-size: 0.82rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          font-size: 0.9rem;
           margin-bottom: 12px;
         }
         .social-proof h2 {
