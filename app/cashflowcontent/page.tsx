@@ -414,8 +414,20 @@ export default function CashFlowContentPage() {
           border: 1px solid var(--card-border);
           background: var(--card);
         }
-        .typeform-wrapper [data-tf-live] { width: 100%; height: 560px; }
-        .typeform-wrapper iframe { width: 100%; height: 560px; display: block; border: 0; }
+        .typeform-wrapper [data-tf-live] {
+          width: 100%;
+          height: clamp(620px, 86vh, 860px);
+        }
+        /* Typeform injects the inner div + iframe at runtime, so they don't get
+           styled-jsx's scoped class — use :global() to reach them and force both
+           to fill the container (no dead space, no inner scroll). */
+        .typeform-wrapper :global([data-tf-live] > div),
+        .typeform-wrapper :global([data-tf-live] iframe) {
+          width: 100% !important;
+          height: 100% !important;
+          display: block;
+          border: 0;
+        }
 
         /* Social proof */
         .social-proof { max-width: 1100px; margin: 72px auto 0; text-align: center; }
