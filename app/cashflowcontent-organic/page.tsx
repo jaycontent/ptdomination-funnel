@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Script from "next/script";
+import { useFbTrack } from "@/lib/useFbTrack";
 
 const WISTIA_MEDIA_ID = "3avlzggbbw";
 const TYPEFORM_ID = "01KZ76X4Q55CP4QBPXZHMH1SPQ";
@@ -63,6 +64,7 @@ const CLOSING: string[] = [
 ];
 
 export default function CashFlowContentOrganicPage() {
+  useFbTrack("PageView");
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const hasLoadedVideo = useRef(false);
   const headlineRef = useRef<HTMLHeadingElement>(null);

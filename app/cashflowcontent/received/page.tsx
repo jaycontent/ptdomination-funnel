@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Script from "next/script";
+import { useFbTrack } from "@/lib/useFbTrack";
 import { Check, MessageSquareText, Instagram } from "lucide-react";
 
 const WISTIA_MEDIA_ID = "edhhehvssc";
@@ -19,6 +20,7 @@ const IF_LINES = [
 ];
 
 export default function ApplicationReceivedPage() {
+  useFbTrack("SubmitApplication");
   const [done, setDone] = useState<boolean[]>([false, false]);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const hasLoadedVideo = useRef(false);
