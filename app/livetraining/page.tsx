@@ -519,6 +519,7 @@ export default function LiveTrainingPage() {
     lastName: "",
     email: "",
     phone: "",
+    invest: "",
     consent: true,
   });
   const [utmParams, setUtmParams] = useState<UtmParams>({
@@ -581,6 +582,7 @@ export default function LiveTrainingPage() {
           last_name: form.lastName,
           email: form.email,
           phone: form.phone,
+          would_invest: form.invest === "yes" ? "Yes, I would" : "No, just exploring possibilities",
           sms_consent: form.consent,
           webinar_datetime: webinar.iso,
           page_path: pagePath,
@@ -922,6 +924,7 @@ interface FormState {
   lastName: string;
   email: string;
   phone: string;
+  invest: string;
   consent: boolean;
 }
 
@@ -989,6 +992,49 @@ function RegistrationForm({
         />
       </div>
 
+      <div>
+        <label className="block text-sm font-semibold text-slate-200 mb-2 leading-snug">
+          If it meant adding $1&ndash;2K per week to your online fitness business, would you invest money into your content systems?
+          <span className="text-[#00d9ff]"> *</span>
+        </label>
+        <div className="grid gap-2">
+          {[
+            { value: "yes", label: "Yes, I would" },
+            { value: "no", label: "No, just exploring possibilities" },
+          ].map((opt) => {
+            const selected = form.invest === opt.value;
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                onClick={() => setForm((f) => ({ ...f, invest: opt.value }))}
+                className="flex items-center gap-3 text-left rounded-xl p-3.5 border transition-all duration-150"
+                style={
+                  selected
+                    ? { background: "rgba(0,159,238,0.12)", borderColor: "#009fee" }
+                    : { background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.12)" }
+                }
+              >
+                <span
+                  className="w-5 h-5 rounded-full flex items-center justify-center border-2 flex-shrink-0"
+                  style={{ borderColor: selected ? "#009fee" : "rgba(255,255,255,0.3)" }}
+                >
+                  {selected && (
+                    <span
+                      className="w-2.5 h-2.5 rounded-full"
+                      style={{ background: "linear-gradient(135deg, #009fee, #00FFFF)" }}
+                    />
+                  )}
+                </span>
+                <span className="text-sm text-slate-200 font-medium">{opt.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="flex items-start gap-3 bg-white/5 border border-white/10 rounded-xl p-4">
         <div className="flex-shrink-0 mt-0.5">
           <button
@@ -1019,7 +1065,7 @@ function RegistrationForm({
       )}
       <button
         type="submit"
-        disabled={submitting || !form.consent}
+        disabled={submitting || !form.consent || !form.invest}
         className="pulse-btn accent-btn w-full font-extrabold text-base py-4 rounded-xl transition-all duration-200 tracking-wide shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:animation-none mt-1"
       >
         {submitting ? "Registering..." : "Register Now →"}

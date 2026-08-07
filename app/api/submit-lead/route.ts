@@ -12,6 +12,7 @@ type LeadPayload = {
   last_name?: string;
   email?: string;
   phone?: string;
+  would_invest?: string | null;
   sms_consent?: boolean;
   webinar_datetime?: string | null;
   page_path?: string | null;
@@ -45,6 +46,7 @@ export async function POST(req: Request) {
     last_name: (body.last_name ?? '').trim() || null,
     email,
     phone: (body.phone ?? '').trim() || null,
+    would_invest: (body.would_invest ?? '').trim() || null,
     sms_consent: body.sms_consent ?? false,
     webinar_datetime: body.webinar_datetime ?? null,
     page_path: body.page_path ?? null,
@@ -57,7 +59,14 @@ export async function POST(req: Request) {
 
   // 1) Persist the lead in Supabase.
   try {
-    const { error: dbError } = await getSupabaseAdmin().from(LEADS_TABLE).insert(lead);
+    const sb = getSupabaseAdmin();
+    let { error: dbError } = await sb.from(LEADS_TABLE).insert(lead);
+    // If the would_invest column hasn't been added to the table yet, save the
+    // rest so the opt-in never breaks (the answer still goes to Zapier below).
+    if (dbError && /would_invest/i.test(dbError.message)) {
+      const { would_invest, ...rest } = lead;
+      ({ error: dbError } = await sb.from(LEADS_TABLE).insert(rest));
+    }
     if (dbError) {
       console.error('[submit-lead] Supabase insert failed:', dbError.message);
       return NextResponse.json({ error: 'Could not save your details. Please try again.' }, { status: 500 });
