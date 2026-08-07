@@ -520,7 +520,7 @@ export default function LiveTrainingPage() {
     email: "",
     phone: "",
     invest: "",
-    consent: true,
+    consent: false,
   });
   const [utmParams, setUtmParams] = useState<UtmParams>({
     utm_source: null,
@@ -598,7 +598,9 @@ export default function LiveTrainingPage() {
       setSubmitError("Something went wrong. Please try again.");
       return;
     }
-    router.push("/livetraining/confirmation");
+    // "Yes" leads go to the pixel-tracked confirmation; "No" leads go to a
+    // duplicate with no Facebook pixel event, so we don't report them to Meta.
+    router.push(form.invest === "yes" ? "/livetraining/confirmation" : "/livetraining/confirmation-b");
   };
 
   return (
