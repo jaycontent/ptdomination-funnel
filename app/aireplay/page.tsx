@@ -47,7 +47,7 @@ export default function AIReplayPage() {
   useEffect(() => {
     if (videoContainerRef.current && !hasLoadedVideo.current) {
       hasLoadedVideo.current = true;
-      videoContainerRef.current.innerHTML = '<wistia-player media-id="gccmxq16wr" aspect="1.7777777777777777"></wistia-player>';
+      videoContainerRef.current.innerHTML = '<wistia-player media-id="uvd1j1xdqz" aspect="1.7777777777777777"></wistia-player>';
     }
   }, []);
 
@@ -69,7 +69,7 @@ export default function AIReplayPage() {
   return (
     <>
       <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
-      <Script src="https://fast.wistia.com/embed/gccmxq16wr.js" strategy="afterInteractive" type="module" />
+      <Script src="https://fast.wistia.com/embed/uvd1j1xdqz.js" strategy="afterInteractive" type="module" />
       <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
 
       <div className="replay-page">
