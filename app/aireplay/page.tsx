@@ -47,7 +47,7 @@ export default function AIReplayPage() {
   useEffect(() => {
     if (videoContainerRef.current && !hasLoadedVideo.current) {
       hasLoadedVideo.current = true;
-      videoContainerRef.current.innerHTML = '<wistia-player media-id="uvd1j1xdqz" aspect="1.7777777777777777"></wistia-player>';
+      videoContainerRef.current.innerHTML = '<wistia-player media-id="uvd1j1xdqz" aspect="1.7173524150268336"></wistia-player>';
     }
   }, []);
 
@@ -514,7 +514,7 @@ export default function AIReplayPage() {
             overflow: hidden;
             border: 1px solid var(--card-border);
             background: var(--card);
-            aspect-ratio: 16/9;
+            aspect-ratio: 1.7173524150268336;
           }
 
           .video-wrapper wistia-player {
