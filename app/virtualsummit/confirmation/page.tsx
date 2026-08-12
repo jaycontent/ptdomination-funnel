@@ -126,8 +126,7 @@ export default function SummitConfirmationPage() {
         {/* DM SUMMIT */}
         <div className="section dm">
           <p className="section-body">
-            Want a reminder and behind-the-scenes access? DM me the word <strong>SUMMIT</strong> on
-            Instagram.
+            DM me the word <strong>SUMMIT</strong> on Instagram.
           </p>
           <a className="cta-btn ig" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
             <Instagram size={19} />
