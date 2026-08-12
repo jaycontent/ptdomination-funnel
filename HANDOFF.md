@@ -192,9 +192,8 @@ at deploy time). After editing in Vercel, redeploy the latest production deploym
   alter table public.livetraining_leads add column if not exists would_invest text;
   ```
   Until then the opt-in still works and the answer still reaches Zapier — it just isn't saved in the DB.
-- [ ] **Virtual Summit GoFundMe link** — the Donate button on `/virtualsummit/confirmation` points to a
-  placeholder (`https://www.gofundme.com/`). Replace `GOFUNDME_URL` in
-  `app/virtualsummit/confirmation/page.tsx` with the real campaign URL.
+- [x] **Virtual Summit GoFundMe link** — set to `https://gofund.me/7f4d1dbde` in
+  `app/virtualsummit/confirmation/page.tsx`.
 - [ ] **Typeform redirects** — point each Cash Flow Content Typeform's completion redirect at the
   matching `/received` (or `/received-organic`) page.
 - [ ] **Confirm the Virtual Summit is Aug 20–21, 2026** — that's what the add-to-calendar buttons use.

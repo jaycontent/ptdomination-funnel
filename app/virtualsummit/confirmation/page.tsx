@@ -7,8 +7,7 @@ import { CheckCircle2, Heart, Instagram, CalendarDays } from "lucide-react";
 const WISTIA_MEDIA_ID = "6yzfwy9zz6";
 const INSTAGRAM_URL = "https://www.instagram.com/therealbrianmark/";
 
-// TODO: replace with the real GoFundMe campaign URL.
-const GOFUNDME_URL = "https://www.gofundme.com/";
+const GOFUNDME_URL = "https://gofund.me/7f4d1dbde";
 
 // Two-day, all-day event (Aug 20–21, 2026). End date is exclusive (Aug 22).
 const CAL_TITLE = "Online Trainer Virtual Summit";
