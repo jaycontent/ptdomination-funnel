@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Script from "next/script";
 import { CheckCircle2, Heart, Instagram, CalendarDays } from "lucide-react";
+import { useFbTrack } from "@/lib/useFbTrack";
 
 const WISTIA_MEDIA_ID = "6yzfwy9zz6";
 const INSTAGRAM_URL = "https://www.instagram.com/therealbrianmark/";
@@ -42,6 +43,7 @@ const ICS = [
 const APPLE_CAL = "data:text/calendar;charset=utf8," + encodeURIComponent(ICS);
 
 export default function SummitConfirmationPage() {
+  useFbTrack("CompleteRegistration");
   const videoRef = useRef<HTMLDivElement>(null);
   const hasLoaded = useRef(false);
 
