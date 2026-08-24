@@ -41,7 +41,6 @@ export default function ContentToCashPage() {
     email: "",
     phone: "",
     invest: false,
-    consent: false,
   });
   const [utm, setUtm] = useState<UtmParams>({
     utm_source: null,
@@ -98,7 +97,6 @@ export default function ContentToCashPage() {
           email: form.email,
           phone: form.phone,
           would_invest: form.invest ? "Yes, I would invest" : "No",
-          sms_consent: form.consent,
           page_path: pagePath,
           ...utm,
         }),
@@ -206,25 +204,9 @@ export default function ContentToCashPage() {
               </span>
             </button>
 
-            {/* SMS consent */}
-            <button type="button" role="checkbox" aria-checked={form.consent}
-              onClick={() => setForm((f) => ({ ...f, consent: !f.consent }))} className="check-row">
-              <span className="box" data-checked={form.consent}>
-                {form.consent && (
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
-              </span>
-              <span className="check-text">
-                I agree to receive event reminders and the Zoom link by email and text (SMS). Msg &amp; data
-                rates may apply. Reply STOP to opt out.
-              </span>
-            </button>
-
             {submitError && <p className="err">{submitError}</p>}
 
-            <button type="submit" disabled={submitting || !form.consent} className="submit-btn">
+            <button type="submit" disabled={submitting} className="submit-btn">
               {submitting ? "Registering…" : "Register Free →"}
             </button>
             <p className="form-note">100% free. For business owners doing $10K+/month who want to scale.</p>

@@ -70,7 +70,7 @@ stay in sync — only the main page adds the pixel event.
 ### Content-to-Cash Masterclass funnel (recurring webinar — broad, all business owners)
 | Route | What it is | Pixel event |
 | --- | --- | --- |
-| `/contenttocash` | Masterclass opt-in: headline, video, countdown, form (name/email/phone + SMS consent + an **unchecked** "would you invest…" checkbox). Posts to `/api/submit-contenttocash` → `CONTENTTOCASH_WEBHOOK_URL`. | `PageView` |
+| `/contenttocash` | Masterclass opt-in: headline, video, countdown, form (name/email/phone + an **unchecked** "would you invest…" checkbox). Posts to `/api/submit-contenttocash` → `CONTENTTOCASH_WEBHOOK_URL`. | `PageView` |
 | `/contenttocash/confirmation` | Thank-you for registrants who **checked** the invest box — video, DM-BOOKED, add-to-calendar, show-up-live bonuses. | `CompleteRegistration` |
 | `/contenttocash/confirmation-b` | Identical page for registrants who **left the box unchecked**, with the pixel removed. | none |
 
