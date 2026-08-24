@@ -67,6 +67,16 @@ stay in sync — only the main page adds the pixel event.
 | `/aireplay` | AI masterclass replay (Wistia video) + Calendly "book a strategy call" popup. |
 | `/dmsalestraining` | DM sales training replay + Calendly "book a call" popup. |
 
+### Content-to-Cash Masterclass funnel (recurring webinar — broad, all business owners)
+| Route | What it is | Pixel event |
+| --- | --- | --- |
+| `/contenttocash` | Masterclass opt-in: headline, video, countdown, form (name/email/phone + SMS consent + an **unchecked** "would you invest…" checkbox). Posts to `/api/submit-contenttocash` → `CONTENTTOCASH_WEBHOOK_URL`. | `PageView` |
+| `/contenttocash/confirmation` | Thank-you for registrants who **checked** the invest box — video, DM-BOOKED, add-to-calendar, show-up-live bonuses. | `CompleteRegistration` |
+| `/contenttocash/confirmation-b` | Identical page for registrants who **left the box unchecked**, with the pixel removed. | none |
+
+The invest checkbox decides the destination: **checked → `/confirmation`**, **unchecked → `/confirmation-b`**.
+Same pattern as the livetraining split; both confirmations share `components/ContentToCashConfirmation.tsx`.
+
 ### Virtual Summit funnel (ONE-TIME event — Aug 20–21)
 | Route | What it is | Pixel event |
 | --- | --- | --- |
@@ -177,6 +187,7 @@ mirrored in the local `.env` (which is gitignored — secrets are never committe
 | `SUPABASE_SERVICE_ROLE_KEY` | server only (secret) | **no** |
 | `ZAPIER_WEBHOOK_URL` | `/api/submit-lead` | **no** |
 | `SUMMIT_WEBHOOK_URL` | `/api/submit-summit` | **no** |
+| `CONTENTTOCASH_WEBHOOK_URL` | `/api/submit-contenttocash` | **no** |
 | `NEXT_PUBLIC_SITE_URL` | metadata / OG URLs (`https://goptdomination.com`) | yes |
 
 ⚠️ **Changing an env var requires a redeploy** to take effect (the running functions read the value
