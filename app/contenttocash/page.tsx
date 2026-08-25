@@ -290,7 +290,7 @@ export default function ContentToCashPage() {
             {/* Form — inline on mobile only */}
             <div className="form-card form-mobile" ref={formRef}>
               <div className="form-eyebrow">Registration</div>
-              <h2>Live Zoom Call on How to Turn Your Content Into Cash</h2>
+              <h2>Save Your Spot on the Zoom Call</h2>
               <p className="form-when">{webinar.longDisplay} · 4:30 PM PST</p>
               <form onSubmit={handleSubmit} className="reg-form">
                 <div className="grid2">
@@ -365,7 +365,7 @@ export default function ContentToCashPage() {
           <aside className="form-col">
             <div className="form-card form-sticky">
               <div className="form-eyebrow">Registration</div>
-              <h2>Live Zoom Call on How to Turn Your Content Into Cash</h2>
+              <h2>Save Your Spot on the Zoom Call</h2>
               <p className="form-when">{webinar.longDisplay} · 4:30 PM PST</p>
               <form onSubmit={handleSubmit} className="reg-form">
                 <div className="grid2">
@@ -424,6 +424,8 @@ export default function ContentToCashPage() {
 
       <style jsx global>{`
         body { background: #0a0e1a !important; }
+        /* Global because lucide icons are components — styled-jsx won't scope them. */
+        .li-check { color: #00d9ff; flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; }
         wistia-player { width: 100%; display: block; }
         wistia-player[media-id='${WISTIA_MEDIA_ID}']:not(:defined) {
           background: center / contain no-repeat
@@ -644,7 +646,6 @@ export default function ContentToCashPage() {
         .learn h2 { color: var(--white); font-weight: 800; font-size: clamp(1.5rem, 4vw, 2rem); text-align: center; margin-bottom: 22px; }
         .learn ul { list-style: none; padding: 0; margin: 0 0 28px; display: grid; gap: 14px; max-width: 600px; margin-left: auto; margin-right: auto; }
         .learn li { display: flex; gap: 12px; align-items: flex-start; color: var(--body); }
-        .li-check { color: var(--blue); flex-shrink: 0; margin-top: 2px; }
         .ghost-btn {
           display: block;
           width: 100%;

@@ -10,33 +10,6 @@ const INSTAGRAM_URL = "https://www.instagram.com/therealbrianmark/";
 
 const webinar = getNextWebinarDate();
 
-const CAL_TITLE = "The Instagram Marketing Funnel Masterclass";
-const CAL_DETAILS = "Your Zoom link is in your email and texts. Show up live for the slides + live Q&A.";
-const GOOGLE_CAL =
-  "https://www.google.com/calendar/render?action=TEMPLATE&text=" +
-  encodeURIComponent(CAL_TITLE) +
-  `&dates=${webinar.utcStart}/${webinar.utcEnd}&details=` +
-  encodeURIComponent(CAL_DETAILS);
-const OUTLOOK_CAL =
-  "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=" +
-  encodeURIComponent(CAL_TITLE) +
-  `&startdt=${webinar.utcStartFull}&enddt=${webinar.utcEndFull}&body=` +
-  encodeURIComponent(CAL_DETAILS);
-const ICS = [
-  "BEGIN:VCALENDAR",
-  "VERSION:2.0",
-  "PRODID:-//PT Domination//Masterclass//EN",
-  "BEGIN:VEVENT",
-  "UID:content-to-cash-masterclass@ptdomination",
-  `DTSTART:${webinar.utcStart}`,
-  `DTEND:${webinar.utcEnd}`,
-  "SUMMARY:" + CAL_TITLE,
-  "DESCRIPTION:" + CAL_DETAILS,
-  "END:VEVENT",
-  "END:VCALENDAR",
-].join("\r\n");
-const APPLE_CAL = "data:text/calendar;charset=utf8," + encodeURIComponent(ICS);
-
 const EXPECT = [
   "The Instagram Marketing Funnel: connection content, conversion value, and social proof, plus what to post at each stage",
   "What to post to get followers vs. what to post to get clients",
@@ -140,11 +113,6 @@ export default function ContentToCashConfirmation() {
               <CalendarDays size={16} />
               {webinar.longDisplay} at 4:30 PM PST
             </div>
-            <div className="cal-buttons">
-              <a href={GOOGLE_CAL} target="_blank" rel="noopener noreferrer">Google</a>
-              <a href={APPLE_CAL} download="masterclass.ics">Apple</a>
-              <a href={OUTLOOK_CAL} target="_blank" rel="noopener noreferrer">Outlook</a>
-            </div>
           </div>
 
           {/* What to expect */}
@@ -207,6 +175,8 @@ export default function ContentToCashConfirmation() {
 
       <style jsx global>{`
         body { background: #0a0e1a !important; }
+        /* Global because lucide icons are components — styled-jsx won't scope them. */
+        .li-check { color: #00d9ff; flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; }
         wistia-player { width: 100%; display: block; }
         wistia-player[media-id='${WISTIA_MEDIA_ID}']:not(:defined) {
           background: center / contain no-repeat
@@ -363,26 +333,9 @@ export default function ContentToCashConfirmation() {
           background: rgba(0, 217, 255, 0.1);
           border: 1px solid rgba(0, 217, 255, 0.3);
         }
-        .cal-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
-        .cal-buttons a {
-          flex: 1;
-          min-width: 92px;
-          max-width: 150px;
-          padding: 11px 14px;
-          border-radius: 10px;
-          text-decoration: none;
-          font-weight: 700;
-          color: var(--white);
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid var(--border);
-          transition: background 0.2s ease, border-color 0.2s ease;
-        }
-        .cal-buttons a:hover { background: rgba(0, 159, 238, 0.12); border-color: rgba(0, 217, 255, 0.6); }
-
         .expect-title { margin-bottom: 18px; }
         .expect-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
         .expect-list li { display: flex; gap: 12px; align-items: flex-start; color: var(--body); }
-        .li-check { color: var(--blue); flex-shrink: 0; margin-top: 2px; }
 
         .testimonial {
           margin: 44px 0 0;
