@@ -86,7 +86,7 @@ export default function ContentToCashPage() {
     lastName: "",
     email: "",
     phone: "",
-    invest: false,
+    invest: "",
   });
   const [utm, setUtm] = useState<UtmParams>({
     utm_source: null,
@@ -142,7 +142,12 @@ export default function ContentToCashPage() {
           last_name: form.lastName,
           email: form.email,
           phone: form.phone,
-          would_invest: form.invest ? "Yes, I would invest" : "No",
+          would_invest:
+            form.invest === "yes"
+              ? "Yes, I would happily invest."
+              : form.invest === "no"
+              ? "No, I don't have money to invest."
+              : "No answer",
           page_path: pagePath,
           ...utm,
         }),
@@ -157,7 +162,7 @@ export default function ContentToCashPage() {
       return;
     }
     // Checked the invest box -> pixel-tracked confirmation; unchecked -> no-pixel duplicate.
-    router.push(form.invest ? "/contenttocash/confirmation" : "/contenttocash/confirmation-b");
+    router.push(form.invest === "yes" ? "/contenttocash/confirmation" : "/contenttocash/confirmation-b");
   };
 
   return (
@@ -246,19 +251,27 @@ export default function ContentToCashPage() {
                   <input type="tel" required placeholder="+1 (555) 000-0000" value={form.phone}
                     onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} />
                 </div>
-                <button type="button" role="checkbox" aria-checked={form.invest}
-                  onClick={() => setForm((f) => ({ ...f, invest: !f.invest }))} className="check-row invest">
-                  <span className="box" data-checked={form.invest}>
-                    {form.invest && (
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    )}
-                  </span>
-                  <span className="check-text invest-text">
+                <div className="invest-block">
+                  <p className="invest-q">
                     Would you invest in building out this content system if it means growing your business?
-                  </span>
-                </button>
+                  </p>
+                  {[
+                    { value: "yes", label: "Yes, I would happily invest." },
+                    { value: "no", label: "No, I don't have money to invest." },
+                  ].map((opt) => {
+                    const selected = form.invest === opt.value;
+                    return (
+                      <button key={opt.value} type="button" role="radio" aria-checked={selected}
+                        onClick={() => setForm((f) => ({ ...f, invest: opt.value }))}
+                        className={`invest-opt ${selected ? "sel" : ""}`}>
+                        <span className="radio-dot" data-checked={selected}>
+                          {selected && <span className="radio-inner" />}
+                        </span>
+                        <span className="invest-opt-label">{opt.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
                 {submitError && <p className="err">{submitError}</p>}
                 <button type="submit" disabled={submitting} className="submit-btn">
                   {submitting ? "Registering…" : "Register Free →"}
@@ -313,19 +326,27 @@ export default function ContentToCashPage() {
                   <input type="tel" required placeholder="+1 (555) 000-0000" value={form.phone}
                     onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} />
                 </div>
-                <button type="button" role="checkbox" aria-checked={form.invest}
-                  onClick={() => setForm((f) => ({ ...f, invest: !f.invest }))} className="check-row invest">
-                  <span className="box" data-checked={form.invest}>
-                    {form.invest && (
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    )}
-                  </span>
-                  <span className="check-text invest-text">
+                <div className="invest-block">
+                  <p className="invest-q">
                     Would you invest in building out this content system if it means growing your business?
-                  </span>
-                </button>
+                  </p>
+                  {[
+                    { value: "yes", label: "Yes, I would happily invest." },
+                    { value: "no", label: "No, I don't have money to invest." },
+                  ].map((opt) => {
+                    const selected = form.invest === opt.value;
+                    return (
+                      <button key={opt.value} type="button" role="radio" aria-checked={selected}
+                        onClick={() => setForm((f) => ({ ...f, invest: opt.value }))}
+                        className={`invest-opt ${selected ? "sel" : ""}`}>
+                        <span className="radio-dot" data-checked={selected}>
+                          {selected && <span className="radio-inner" />}
+                        </span>
+                        <span className="invest-opt-label">{opt.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
                 {submitError && <p className="err">{submitError}</p>}
                 <button type="submit" disabled={submitting} className="submit-btn">
                   {submitting ? "Registering…" : "Register Free →"}
@@ -497,33 +518,42 @@ export default function ContentToCashPage() {
         input:focus { border-color: var(--blue-dim); }
         input::placeholder { color: #55617a; }
 
-        .check-row {
-          display: flex;
-          gap: 12px;
-          align-items: flex-start;
+        .invest-block {
           text-align: left;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(0, 159, 238, 0.08);
+          border: 1px solid var(--border);
           border-radius: 12px;
           padding: 14px;
-          cursor: pointer;
+          display: grid;
+          gap: 8px;
         }
-        .check-row.invest { background: rgba(0, 159, 238, 0.08); border-color: var(--border); }
-        .box {
+        .invest-q { color: var(--white); font-weight: 600; font-size: 0.92rem; margin: 0 0 2px; line-height: 1.4; }
+        .invest-opt {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          text-align: left;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 10px;
+          padding: 11px 12px;
+          cursor: pointer;
+          transition: background 0.15s ease, border-color 0.15s ease;
+        }
+        .invest-opt.sel { background: rgba(0, 159, 238, 0.14); border-color: #009fee; }
+        .radio-dot {
           flex-shrink: 0;
-          width: 20px;
-          height: 20px;
-          border-radius: 5px;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
           border: 2px solid rgba(255, 255, 255, 0.3);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #041016;
-          margin-top: 1px;
         }
-        .box[data-checked="true"] { background: linear-gradient(135deg, #009fee, #00ffff); border-color: #009fee; }
-        .check-text { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
-        .invest-text { font-size: 0.95rem; color: var(--white); font-weight: 600; }
+        .radio-dot[data-checked="true"] { border-color: #009fee; }
+        .radio-inner { width: 9px; height: 9px; border-radius: 50%; background: linear-gradient(135deg, #009fee, #00ffff); }
+        .invest-opt-label { font-size: 0.9rem; color: var(--white); font-weight: 500; }
 
         .err { color: #ff6b6b; font-size: 0.9rem; text-align: center; margin: 0; }
         .submit-btn {
