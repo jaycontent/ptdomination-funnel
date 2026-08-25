@@ -160,6 +160,61 @@ export default function ContentToCashPage() {
     router.push(form.invest ? "/contenttocash/confirmation" : "/contenttocash/confirmation-b");
   };
 
+  // Registration form, rendered both inline (mobile) and in the sticky column (desktop).
+  const formInner = (
+    <>
+      <div className="form-eyebrow">Registration</div>
+      <h2>Save Your Free Seat</h2>
+      <p className="form-when">{webinar.longDisplay} · 4:30 PM PST</p>
+      <form onSubmit={handleSubmit} className="reg-form">
+        <div className="grid2">
+          <div>
+            <label>First Name</label>
+            <input type="text" required placeholder="Jane" value={form.firstName}
+              onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))} />
+          </div>
+          <div>
+            <label>Last Name</label>
+            <input type="text" required placeholder="Smith" value={form.lastName}
+              onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))} />
+          </div>
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" required placeholder="jane@example.com" value={form.email}
+            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} />
+        </div>
+        <div>
+          <label>Phone Number</label>
+          <input type="tel" required placeholder="+1 (555) 000-0000" value={form.phone}
+            onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} />
+        </div>
+
+        {/* Invest checkbox, unchecked by default; drives pixel routing */}
+        <button type="button" role="checkbox" aria-checked={form.invest}
+          onClick={() => setForm((f) => ({ ...f, invest: !f.invest }))} className="check-row invest">
+          <span className="box" data-checked={form.invest}>
+            {form.invest && (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            )}
+          </span>
+          <span className="check-text invest-text">
+            Would you invest in building out this content system if it means growing your business?
+          </span>
+        </button>
+
+        {submitError && <p className="err">{submitError}</p>}
+
+        <button type="submit" disabled={submitting} className="submit-btn">
+          {submitting ? "Registering…" : "Register Free →"}
+        </button>
+        <p className="form-note">100% free. For business owners doing $10K+/month who want to scale.</p>
+      </form>
+    </>
+  );
+
   return (
     <div className="ctc">
       <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
@@ -170,119 +225,78 @@ export default function ContentToCashPage() {
       />
 
       <div className="wrap">
-        {/* Hero */}
-        <div className="hero">
-          <div className="logo-wrap">
-            <Image src="/ptd-logo-sm.webp" alt="PT Domination" width={168} height={55} className="logo" />
-          </div>
-          <div className="badge">
-            Live on Zoom · {webinar.longDisplay}
-            {!countdown.isExpired && (
-              <span className="timer">
-                &nbsp;·&nbsp;starts in {countdown.days}d {pad(countdown.hours)}h {pad(countdown.minutes)}m{" "}
-                {pad(countdown.seconds)}s
-              </span>
-            )}
-          </div>
-          <h1>
-            How to Turn Your Instagram Content Into an Extra <span className="accent">$10K+/Month</span>
-          </h1>
-          <p className="stats-lead">
-            A free 60-minute masterclass on the exact <strong>Instagram Marketing Funnel</strong> behind:
-          </p>
-          <div className="stats">
-            {STATS.map((s) => (
-              <div className="stat" key={s.label}>
-                <div className="stat-num">
-                  <CountUp end={s.end} prefix={s.prefix} suffix={s.suffix} />
-                </div>
-                <div className="stat-label">{s.label}</div>
+        <div className="page-layout">
+          <div className="scroll-col">
+            {/* Hero */}
+            <div className="hero">
+              <div className="logo-wrap">
+                <Image src="/ptd-logo-sm.webp" alt="PT Domination" width={168} height={55} className="logo" />
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Video */}
-        <div className="video-wrapper">
-          <div
-            ref={videoRef}
-            className="wistia-embed"
-            style={{
-              background:
-                "center / contain no-repeat url('https://fast.wistia.com/embed/medias/" +
-                WISTIA_MEDIA_ID +
-                "/swatch')",
-            }}
-          />
-        </div>
-
-        {/* Form */}
-        <div className="form-card" ref={formRef}>
-          <div className="form-eyebrow">Registration</div>
-          <h2>Save Your Free Seat</h2>
-          <p className="form-when">{webinar.longDisplay} · 4:30 PM PST</p>
-          <form onSubmit={handleSubmit} className="reg-form">
-            <div className="grid2">
-              <div>
-                <label>First Name</label>
-                <input type="text" required placeholder="Jane" value={form.firstName}
-                  onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))} />
-              </div>
-              <div>
-                <label>Last Name</label>
-                <input type="text" required placeholder="Smith" value={form.lastName}
-                  onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))} />
-              </div>
-            </div>
-            <div>
-              <label>Email</label>
-              <input type="email" required placeholder="jane@example.com" value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} />
-            </div>
-            <div>
-              <label>Phone Number</label>
-              <input type="tel" required placeholder="+1 (555) 000-0000" value={form.phone}
-                onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} />
-            </div>
-
-            {/* Invest checkbox — unchecked by default; drives pixel routing */}
-            <button type="button" role="checkbox" aria-checked={form.invest}
-              onClick={() => setForm((f) => ({ ...f, invest: !f.invest }))} className="check-row invest">
-              <span className="box" data-checked={form.invest}>
-                {form.invest && (
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+              <div className="badge">
+                Live on Zoom · {webinar.longDisplay}
+                {!countdown.isExpired && (
+                  <span className="timer">
+                    &nbsp;·&nbsp;starts in {countdown.days}d {pad(countdown.hours)}h {pad(countdown.minutes)}m{" "}
+                    {pad(countdown.seconds)}s
+                  </span>
                 )}
-              </span>
-              <span className="check-text invest-text">
-                Would you invest in building out this content system if it means growing your business?
-              </span>
-            </button>
+              </div>
+              <h1>
+                How to Turn Your Instagram Content Into an Extra <span className="accent">$10K+/Month</span>
+              </h1>
+              <p className="stats-lead">
+                A free 60-minute masterclass on the exact <strong>Instagram Marketing Funnel</strong> behind:
+              </p>
+              <div className="stats">
+                {STATS.map((s) => (
+                  <div className="stat" key={s.label}>
+                    <div className="stat-num">
+                      <CountUp end={s.end} prefix={s.prefix} suffix={s.suffix} />
+                    </div>
+                    <div className="stat-label">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            {submitError && <p className="err">{submitError}</p>}
+            {/* Video */}
+            <div className="video-wrapper">
+              <div
+                ref={videoRef}
+                className="wistia-embed"
+                style={{
+                  background:
+                    "center / contain no-repeat url('https://fast.wistia.com/embed/medias/" +
+                    WISTIA_MEDIA_ID +
+                    "/swatch')",
+                }}
+              />
+            </div>
 
-            <button type="submit" disabled={submitting} className="submit-btn">
-              {submitting ? "Registering…" : "Register Free →"}
-            </button>
-            <p className="form-note">100% free. For business owners doing $10K+/month who want to scale.</p>
-          </form>
-        </div>
+            {/* Form — inline on mobile only */}
+            <div className="form-card form-mobile" ref={formRef}>{formInner}</div>
 
-        {/* What you'll learn */}
-        <div className="learn">
-          <h2>What You&apos;ll Learn on the Masterclass</h2>
-          <ul>
-            {LEARN.map((item, i) => (
-              <li key={i}>
-                <CheckCircle2 size={20} className="li-check" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <button className="ghost-btn" onClick={scrollToForm}>
-            Save My Free Seat →
-          </button>
+            {/* What you'll learn */}
+            <div className="learn">
+              <h2>What You&apos;ll Learn on the Masterclass</h2>
+              <ul>
+                {LEARN.map((item, i) => (
+                  <li key={i}>
+                    <CheckCircle2 size={20} className="li-check" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <button className="ghost-btn" onClick={scrollToForm}>
+                Save My Free Seat →
+              </button>
+            </div>
+          </div>
+
+          {/* Sticky form — desktop only */}
+          <aside className="form-col">
+            <div className="form-card form-sticky">{formInner}</div>
+          </aside>
         </div>
       </div>
 
@@ -314,6 +328,8 @@ export default function ContentToCashPage() {
           line-height: 1.65;
         }
         .wrap { max-width: 720px; margin: 0 auto; padding: 44px 20px 72px; }
+        .scroll-col { min-width: 0; }
+        .form-col { display: none; }
 
         .hero { text-align: center; }
         .logo-wrap { display: flex; justify-content: center; padding-bottom: 24px; }
@@ -513,6 +529,24 @@ export default function ContentToCashPage() {
         .ghost-btn:hover { background: rgba(0, 159, 238, 0.12); border-color: rgba(0, 217, 255, 0.6); }
 
         @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } }
+
+        /* Desktop: two-column layout with a sticky form on the right */
+        @media (min-width: 1024px) {
+          .wrap { max-width: 1140px; }
+          .page-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 44px;
+            align-items: start;
+          }
+          .form-mobile { display: none; }
+          .form-col {
+            display: block;
+            position: sticky;
+            top: 24px;
+          }
+          .form-sticky { margin-top: 0; }
+        }
       `}</style>
     </div>
   );
