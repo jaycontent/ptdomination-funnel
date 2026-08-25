@@ -431,7 +431,7 @@ export default function ContentToCashPage() {
                   })}
                 </div>
                 {submitError && <p className="err">{submitError}</p>}
-                <button type="submit" disabled={submitting} className="submit-btn">
+                <button type="submit" disabled={submitting || !form.invest} className="submit-btn">
                   {submitting ? "Registering…" : "Register Free →"}
                 </button>
                 <p className="form-note">100% free. For business owners doing $10K+/month who want to scale.</p>
@@ -555,7 +555,7 @@ export default function ContentToCashPage() {
                   })}
                 </div>
                 {submitError && <p className="err">{submitError}</p>}
-                <button type="submit" disabled={submitting} className="submit-btn">
+                <button type="submit" disabled={submitting || !form.invest} className="submit-btn">
                   {submitting ? "Registering…" : "Register Free →"}
                 </button>
                 <p className="form-note">100% free. For business owners doing $10K+/month who want to scale.</p>
