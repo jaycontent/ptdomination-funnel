@@ -40,6 +40,55 @@ const LEARN = [
   "The 3 content mistakes keeping you stuck: the conversion trap, the viral trap, and generic posting",
 ];
 
+// Social proof + story, brought over from the Cash Flow Content page.
+const ANALYTICS_IMAGES = [
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529361/Photo_2026-07-27_9_01_20_AM_lmhnbv.jpg",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529360/Photo_2026-07-24_12_39_04_PM_cmkx9q.jpg",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529363/Screenshot_2026-07-27_085942_ucivun.png",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529363/Screenshot_2026-07-24_115630_yq5aol.png",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529363/Screenshot_2026-07-24_115442_evtv4k.png",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529363/Screenshot_2026-07-24_115612_tw9do7.png",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529363/Screenshot_2026-07-27_090451_wx5gsd.png",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529363/Screenshot_2026-07-27_090001_uu6lpq.png",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529362/Screenshot_2026-07-24_115425_yphaiy.png",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529362/Screenshot_2026-07-24_115356_ctxi9k.png",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529362/Photo_2026-07-27_9_04_02_AM_ruzx2y.jpg",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529362/Photo_2026-07-27_9_04_30_AM_pxmeld.jpg",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529361/Photo_2026-07-24_12_41_09_PM_icpznc.jpg",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529361/Photo_2026-07-27_9_02_06_AM_o8rw1m.jpg",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529361/Photo_2026-07-24_12_40_49_PM_hst6js.jpg",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529361/Photo_2026-07-24_12_39_45_PM_jt6wfx.jpg",
+  "https://res.cloudinary.com/p70n6k9m/image/upload/v1785529360/Photo_2026-07-24_12_39_34_PM_zg4i3k.jpg",
+];
+
+const STORY: string[] = [
+  "For the business owners who want to grow and sell on social media,",
+  "In the last 5 years I've grown my Instagram account @therealbrianmark from 0 to 700k+ followers and generated over 50 million dollars in sales.",
+  "My business partner Cole DaSilva has amassed a following of 5 million social media followers across Instagram, Youtube, Facebook, Snapchat and TikTok.",
+  "And for the first time ever we are pulling back the curtains and revealing the strategies and the systems behind our content cash generating machine.",
+  "Whether you're a business owner that films on nothing but your iPhone…",
+  "Or you're a business owner that rolls with a videographer and some editors…",
+  "This is an inside look into social media on a level that 99% of people do not have the experience and the credentials to speak on.",
+  "See just 12 years ago I was living in a trailer park addicted to substances sleeping on my grandmother's couch.",
+  "I didn't come from money.",
+  "I had to find a way to make money, and if I didn't make money, that would mean that I'd be working at a 9-5 job for the rest of my life and that simply wasn't an option.",
+];
+
+const STORY_2: string[] = [
+  "And to this point, the only opportunity you got to work with me outside of the fitness industry is through my VIP 1-1 Coaching Program that's $100,000 USD for 12 months.",
+  "And the results of me working 1-1? Insane.",
+  "My client @kaycapitals on Instagram started out with 15k followers, making 80k per month. 2 years later he's got over 1 million followers and he's doing 2 million dollars a month.",
+  "My client @realtordrdotcom started with me with 30,000 followers on Instagram but getting ZERO leads from social media. Their business had done 24 million in sales in 2024 before working with me. As of today, they're over 60,000 followers and they've done over 50 million dollars in sales in 2025 and Instagram is now their #1 source of leads.",
+  "But hey, you don't even need to have a big following or go viral in order to make this system work for you. My client @ryanthewindowcleaner worked with me late 2024 and he started with 4,000 followers doing 25k per month. Now, as of June 2026, he hit his first $100,000 month with only 9,450 followers.",
+  "This system works, and it works for people just like you.",
+  "And listen, I know you've already heard all the advice from all of the gurus.",
+  "“Post more, more hooks, go viral,” but nobody's ever explained to you what it actually takes to turn someone who follows you into a paying customer.",
+  "No one's ever explained how the Instagram algorithm and the attention economy actually work and because of that every time you sit down to create content you're stuck there staring at your phone with no idea what to say.",
+  "That's exactly what this masterclass was created for.",
+  "It was created for the business owner who understands how important social media is and how imperative it is to build a personal brand in 2026 that stands out from the crowd.",
+  "In an age where the world is craving authenticity, no one ever explained to you how to speak on camera in a way that's authentic and real for you, that allows you to share your message in a way that connects with your audience and converts people from “interested,” to “committed.”",
+];
+
 type UtmParams = {
   utm_source: string | null;
   utm_medium: string | null;
@@ -385,6 +434,55 @@ export default function ContentToCashPage() {
                 Save My Free Seat →
               </button>
             </div>
+
+            {/* Social proof */}
+            <div className="social-proof">
+              <div className="eyebrow reveal">Learn the System Behind 6M+ Followers</div>
+              <h2 className="reveal">Real Analytics. Real Results.</h2>
+              <div className="analytics-grid">
+                {ANALYTICS_IMAGES.map((src, i) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img key={i} src={src} alt={`Analytics screenshot ${i + 1}`} loading="lazy" className="analytics-img reveal" />
+                ))}
+              </div>
+            </div>
+
+            {/* Story */}
+            <div className="story">
+              {STORY.map((p, i) => (
+                <p key={`s1-${i}`} className="reveal">{p}</p>
+              ))}
+
+              <div className="phases">
+                <p className="reveal">
+                  <span className="phase-label">First</span>, I worked on my fitness. I got so good that
+                  people asked me how I looked the way I looked.
+                </p>
+                <p className="reveal">
+                  <span className="phase-label">Then</span>, I turned that into a business. I got so good
+                  that fitness coaches kept asking me how to build a fitness business.
+                </p>
+                <p className="reveal">
+                  <span className="phase-label">Now</span>, I&apos;m the best business coach in the space for
+                  online fitness coaches. And in 2026 I&apos;ve received thousands of messages that all say the
+                  same thing:
+                </p>
+              </div>
+
+              <div className="quotes reveal">
+                <p>&ldquo;How did you do it?&rdquo;</p>
+                <p>&ldquo;How did you build your social media?&rdquo;</p>
+                <p>&ldquo;Do you work with people outside of the fitness industry?&rdquo;</p>
+              </div>
+
+              {STORY_2.map((p, i) => (
+                <p key={`s2-${i}`} className="reveal">{p}</p>
+              ))}
+
+              <button className="ghost-btn story-cta" onClick={scrollToForm}>
+                Save My Spot on the Zoom Call →
+              </button>
+            </div>
           </div>
 
           {/* Sticky form — desktop only */}
@@ -687,7 +785,45 @@ export default function ContentToCashPage() {
         }
         .ghost-btn:hover { background: rgba(0, 159, 238, 0.12); border-color: rgba(0, 217, 255, 0.6); }
 
-        @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } }
+        /* Social proof + story (brought from Cash Flow Content) */
+        .social-proof { margin-top: 56px; text-align: center; }
+        .eyebrow {
+          color: var(--blue);
+          font-weight: 800;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          font-size: 0.9rem;
+          margin-bottom: 12px;
+        }
+        .social-proof h2 {
+          color: var(--white);
+          font-weight: 800;
+          font-size: clamp(1.6rem, 4vw, 2.4rem);
+          letter-spacing: -0.02em;
+          margin-bottom: 24px;
+        }
+        .analytics-grid { columns: 2 220px; column-gap: 14px; }
+        .analytics-img {
+          width: 100%;
+          margin-bottom: 14px;
+          border-radius: 12px;
+          border: 1px solid var(--border);
+          display: block;
+          break-inside: avoid;
+          background: var(--card);
+        }
+        .story { margin-top: 56px; max-width: 680px; margin-left: auto; margin-right: auto; font-size: 1.1rem; }
+        .story p { margin-bottom: 20px; color: var(--body); }
+        .phase-label { color: var(--blue); font-weight: 800; }
+        .phases { margin: 8px 0; }
+        .quotes { border-left: 3px solid var(--blue); padding: 4px 0 4px 22px; margin: 26px 0; }
+        .quotes p { color: var(--white); font-style: italic; font-size: 1.2rem; margin-bottom: 8px; }
+        .story-cta { margin-top: 30px; }
+
+        @media (max-width: 480px) {
+          .grid2 { grid-template-columns: 1fr; }
+          .analytics-grid { columns: 2 140px; }
+        }
 
         /* Desktop: two-column layout with a sticky form on the right */
         @media (min-width: 1024px) {
