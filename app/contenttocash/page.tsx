@@ -27,6 +27,52 @@ type UtmParams = {
   utm_term: string | null;
 };
 
+const STATS = [
+  { end: 700, prefix: "", suffix: "K+", label: "Followers" },
+  { end: 30, prefix: "", suffix: "M+", label: "Monthly Views" },
+  { end: 50, prefix: "$", suffix: "M+", label: "In Sales" },
+];
+
+// Animates a number from 0 to `end` when it scrolls into view.
+function CountUp({ end, prefix = "", suffix = "", duration = 1600 }: { end: number; prefix?: string; suffix?: string; duration?: number }) {
+  const [val, setVal] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const run = () => {
+      if (started.current) return;
+      started.current = true;
+      let t0: number | null = null;
+      const tick = (now: number) => {
+        if (t0 === null) t0 = now;
+        const p = Math.min(1, (now - t0) / duration);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setVal(end * eased);
+        if (p < 1) requestAnimationFrame(tick);
+        else setVal(end);
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { run(); io.disconnect(); } }),
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [end, duration]);
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      {Math.round(val)}
+      {suffix}
+    </span>
+  );
+}
+
 export default function ContentToCashPage() {
   useFbTrack("PageView");
   const router = useRouter();
@@ -142,10 +188,20 @@ export default function ContentToCashPage() {
             How to Turn Your Instagram Content Into an Extra <span className="accent">$10K+/Month</span>
           </h1>
           <p className="sub">
-            A free 60-minute masterclass on the exact <strong>Instagram Marketing Funnel</strong> behind
-            700K followers, 30M monthly views, and $50M in sales. For business owners doing $10K/month who
-            want to scale.
+            A free 60-minute masterclass on the exact <strong>Instagram Marketing Funnel</strong>, for
+            business owners doing $10K/month who want to scale.
           </p>
+          <div className="stats-eyebrow">The funnel behind:</div>
+          <div className="stats">
+            {STATS.map((s) => (
+              <div className="stat" key={s.label}>
+                <div className="stat-num">
+                  <CountUp end={s.end} prefix={s.prefix} suffix={s.suffix} />
+                </div>
+                <div className="stat-label">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Video */}
@@ -296,9 +352,50 @@ export default function ContentToCashPage() {
           color: var(--muted);
           font-size: clamp(1.02rem, 2.3vw, 1.22rem);
           max-width: 580px;
-          margin: 0 auto 34px;
+          margin: 0 auto 26px;
         }
         .sub strong { color: var(--white); }
+        .stats-eyebrow {
+          color: var(--muted);
+          font-weight: 700;
+          font-size: 0.74rem;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        }
+        .stats {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+          max-width: 560px;
+          margin: 0 auto 34px;
+        }
+        .stat {
+          background: var(--card);
+          border: 1px solid var(--border);
+          border-radius: 14px;
+          padding: 18px 8px;
+          text-align: center;
+        }
+        .stat-num {
+          font-weight: 800;
+          font-size: clamp(1.5rem, 6vw, 2.2rem);
+          line-height: 1;
+          letter-spacing: -0.02em;
+          background: linear-gradient(135deg, #00d9ff, #009fee);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-variant-numeric: tabular-nums;
+        }
+        .stat-label {
+          margin-top: 8px;
+          color: var(--muted);
+          font-weight: 700;
+          font-size: 0.68rem;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+        }
         .video-wrapper {
           border-radius: 16px;
           overflow: hidden;
