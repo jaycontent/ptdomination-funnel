@@ -160,61 +160,6 @@ export default function ContentToCashPage() {
     router.push(form.invest ? "/contenttocash/confirmation" : "/contenttocash/confirmation-b");
   };
 
-  // Registration form, rendered both inline (mobile) and in the sticky column (desktop).
-  const formInner = (
-    <>
-      <div className="form-eyebrow">Registration</div>
-      <h2>Save Your Free Seat</h2>
-      <p className="form-when">{webinar.longDisplay} · 4:30 PM PST</p>
-      <form onSubmit={handleSubmit} className="reg-form">
-        <div className="grid2">
-          <div>
-            <label>First Name</label>
-            <input type="text" required placeholder="Jane" value={form.firstName}
-              onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))} />
-          </div>
-          <div>
-            <label>Last Name</label>
-            <input type="text" required placeholder="Smith" value={form.lastName}
-              onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))} />
-          </div>
-        </div>
-        <div>
-          <label>Email</label>
-          <input type="email" required placeholder="jane@example.com" value={form.email}
-            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} />
-        </div>
-        <div>
-          <label>Phone Number</label>
-          <input type="tel" required placeholder="+1 (555) 000-0000" value={form.phone}
-            onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} />
-        </div>
-
-        {/* Invest checkbox, unchecked by default; drives pixel routing */}
-        <button type="button" role="checkbox" aria-checked={form.invest}
-          onClick={() => setForm((f) => ({ ...f, invest: !f.invest }))} className="check-row invest">
-          <span className="box" data-checked={form.invest}>
-            {form.invest && (
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            )}
-          </span>
-          <span className="check-text invest-text">
-            Would you invest in building out this content system if it means growing your business?
-          </span>
-        </button>
-
-        {submitError && <p className="err">{submitError}</p>}
-
-        <button type="submit" disabled={submitting} className="submit-btn">
-          {submitting ? "Registering…" : "Register Free →"}
-        </button>
-        <p className="form-note">100% free. For business owners doing $10K+/month who want to scale.</p>
-      </form>
-    </>
-  );
-
   return (
     <div className="ctc">
       <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
@@ -274,7 +219,53 @@ export default function ContentToCashPage() {
             </div>
 
             {/* Form — inline on mobile only */}
-            <div className="form-card form-mobile" ref={formRef}>{formInner}</div>
+            <div className="form-card form-mobile" ref={formRef}>
+              <div className="form-eyebrow">Registration</div>
+              <h2>Save Your Free Seat</h2>
+              <p className="form-when">{webinar.longDisplay} · 4:30 PM PST</p>
+              <form onSubmit={handleSubmit} className="reg-form">
+                <div className="grid2">
+                  <div>
+                    <label>First Name</label>
+                    <input type="text" required placeholder="Jane" value={form.firstName}
+                      onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))} />
+                  </div>
+                  <div>
+                    <label>Last Name</label>
+                    <input type="text" required placeholder="Smith" value={form.lastName}
+                      onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))} />
+                  </div>
+                </div>
+                <div>
+                  <label>Email</label>
+                  <input type="email" required placeholder="jane@example.com" value={form.email}
+                    onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} />
+                </div>
+                <div>
+                  <label>Phone Number</label>
+                  <input type="tel" required placeholder="+1 (555) 000-0000" value={form.phone}
+                    onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} />
+                </div>
+                <button type="button" role="checkbox" aria-checked={form.invest}
+                  onClick={() => setForm((f) => ({ ...f, invest: !f.invest }))} className="check-row invest">
+                  <span className="box" data-checked={form.invest}>
+                    {form.invest && (
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </span>
+                  <span className="check-text invest-text">
+                    Would you invest in building out this content system if it means growing your business?
+                  </span>
+                </button>
+                {submitError && <p className="err">{submitError}</p>}
+                <button type="submit" disabled={submitting} className="submit-btn">
+                  {submitting ? "Registering…" : "Register Free →"}
+                </button>
+                <p className="form-note">100% free. For business owners doing $10K+/month who want to scale.</p>
+              </form>
+            </div>
 
             {/* What you'll learn */}
             <div className="learn">
@@ -295,7 +286,53 @@ export default function ContentToCashPage() {
 
           {/* Sticky form — desktop only */}
           <aside className="form-col">
-            <div className="form-card form-sticky">{formInner}</div>
+            <div className="form-card form-sticky">
+              <div className="form-eyebrow">Registration</div>
+              <h2>Save Your Free Seat</h2>
+              <p className="form-when">{webinar.longDisplay} · 4:30 PM PST</p>
+              <form onSubmit={handleSubmit} className="reg-form">
+                <div className="grid2">
+                  <div>
+                    <label>First Name</label>
+                    <input type="text" required placeholder="Jane" value={form.firstName}
+                      onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))} />
+                  </div>
+                  <div>
+                    <label>Last Name</label>
+                    <input type="text" required placeholder="Smith" value={form.lastName}
+                      onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))} />
+                  </div>
+                </div>
+                <div>
+                  <label>Email</label>
+                  <input type="email" required placeholder="jane@example.com" value={form.email}
+                    onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} />
+                </div>
+                <div>
+                  <label>Phone Number</label>
+                  <input type="tel" required placeholder="+1 (555) 000-0000" value={form.phone}
+                    onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} />
+                </div>
+                <button type="button" role="checkbox" aria-checked={form.invest}
+                  onClick={() => setForm((f) => ({ ...f, invest: !f.invest }))} className="check-row invest">
+                  <span className="box" data-checked={form.invest}>
+                    {form.invest && (
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </span>
+                  <span className="check-text invest-text">
+                    Would you invest in building out this content system if it means growing your business?
+                  </span>
+                </button>
+                {submitError && <p className="err">{submitError}</p>}
+                <button type="submit" disabled={submitting} className="submit-btn">
+                  {submitting ? "Registering…" : "Register Free →"}
+                </button>
+                <p className="form-note">100% free. For business owners doing $10K+/month who want to scale.</p>
+              </form>
+            </div>
           </aside>
         </div>
       </div>
