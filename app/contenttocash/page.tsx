@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Script from "next/script";
 import { CheckCircle2 } from "lucide-react";
 import { getNextWebinarDate, calculateTimeRemaining } from "@/lib/date";
@@ -186,6 +185,36 @@ export default function ContentToCashPage() {
     };
   }, []);
 
+  // Keep the form heading ("Save Your Spot on the Zoom Call") to a single line by
+  // shrinking its font until it no longer overflows the form width.
+  useEffect(() => {
+    const fit = () => {
+      document.querySelectorAll<HTMLHeadingElement>(".form-card h2").forEach((el) => {
+        if (el.offsetParent === null) return; // skip the hidden (other-breakpoint) copy
+        el.style.whiteSpace = "nowrap";
+        let size = 26;
+        el.style.fontSize = size + "px";
+        while (el.scrollWidth > el.clientWidth && size > 12) {
+          size -= 1;
+          el.style.fontSize = size + "px";
+        }
+      });
+    };
+    let raf = 0;
+    const onResize = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(fit);
+    };
+    fit();
+    window.addEventListener("resize", onResize);
+    // @ts-ignore - fonts API not in older TS DOM libs
+    if (document.fonts?.ready) document.fonts.ready.then(fit).catch(() => {});
+    return () => {
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   const scrollToForm = () => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -241,9 +270,6 @@ export default function ContentToCashPage() {
           <div className="scroll-col">
             {/* Hero */}
             <div className="hero">
-              <div className="logo-wrap">
-                <Image src="/ptd-logo-sm.webp" alt="PT Domination" width={168} height={55} className="logo" />
-              </div>
               <div className="badge">
                 Live on Zoom · {webinar.longDisplay}
                 {!countdown.isExpired && (
@@ -456,8 +482,6 @@ export default function ContentToCashPage() {
         .form-col { display: none; }
 
         .hero { text-align: center; }
-        .logo-wrap { display: flex; justify-content: center; padding-bottom: 24px; }
-        .logo { height: auto; }
         .badge {
           display: inline-block;
           margin-bottom: 18px;
