@@ -267,7 +267,7 @@ export default function ContentToCashPage() {
             {/* Form — inline on mobile only */}
             <div className="form-card form-mobile" ref={formRef}>
               <div className="form-eyebrow">Registration</div>
-              <h2>Save Your Free Seat</h2>
+              <h2>Live Zoom Call on How to Turn Your Content Into Cash</h2>
               <p className="form-when">{webinar.longDisplay} · 4:30 PM PST</p>
               <form onSubmit={handleSubmit} className="reg-form">
                 <div className="grid2">
@@ -342,7 +342,7 @@ export default function ContentToCashPage() {
           <aside className="form-col">
             <div className="form-card form-sticky">
               <div className="form-eyebrow">Registration</div>
-              <h2>Save Your Free Seat</h2>
+              <h2>Live Zoom Call on How to Turn Your Content Into Cash</h2>
               <p className="form-when">{webinar.longDisplay} · 4:30 PM PST</p>
               <form onSubmit={handleSubmit} className="reg-form">
                 <div className="grid2">
