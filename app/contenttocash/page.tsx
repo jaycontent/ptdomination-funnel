@@ -200,7 +200,6 @@ export default function ContentToCashPage() {
               </div>
             ))}
           </div>
-          <p className="stats-after">For business owners doing $10K/month who want to scale.</p>
         </div>
 
         {/* Video */}
@@ -359,7 +358,7 @@ export default function ContentToCashPage() {
           grid-template-columns: repeat(3, 1fr);
           gap: 10px;
           max-width: 420px;
-          margin: 0 auto 14px;
+          margin: 0 auto 34px;
         }
         .stat {
           background: var(--card);
@@ -386,12 +385,6 @@ export default function ContentToCashPage() {
           font-size: 0.6rem;
           letter-spacing: 0.04em;
           text-transform: uppercase;
-        }
-        .stats-after {
-          color: var(--muted);
-          font-size: clamp(0.95rem, 2vw, 1.08rem);
-          max-width: 520px;
-          margin: 0 auto 34px;
         }
         .video-wrapper {
           border-radius: 16px;
