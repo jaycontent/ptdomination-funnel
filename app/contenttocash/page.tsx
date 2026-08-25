@@ -79,6 +79,8 @@ export default function ContentToCashPage() {
   const videoRef = useRef<HTMLDivElement>(null);
   const hasLoaded = useRef(false);
   const formRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const headlineInnerRef = useRef<HTMLSpanElement>(null);
 
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, isExpired: false });
   const [form, setForm] = useState({
@@ -123,6 +125,43 @@ export default function ContentToCashPage() {
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
+  }, []);
+
+  // Keep the hero headline to exactly two lines by shrinking the font until it
+  // fits in at most two line boxes. Re-runs on resize and after the font loads.
+  useEffect(() => {
+    const h1 = headlineRef.current;
+    const inner = headlineInnerRef.current;
+    if (!h1 || !inner) return;
+    const MAX_PX = 50;
+    const MIN_PX = 15;
+    let raf = 0;
+    const lineCount = () => {
+      const tops = new Set<number>();
+      const rects = inner.getClientRects();
+      for (let i = 0; i < rects.length; i++) tops.add(Math.round(rects[i].top));
+      return tops.size;
+    };
+    const fit = () => {
+      let size = MAX_PX;
+      h1.style.fontSize = size + "px";
+      while (lineCount() > 2 && size > MIN_PX) {
+        size -= 1;
+        h1.style.fontSize = size + "px";
+      }
+    };
+    const onResize = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(fit);
+    };
+    fit();
+    window.addEventListener("resize", onResize);
+    // @ts-ignore - fonts API not in older TS DOM libs
+    if (document.fonts?.ready) document.fonts.ready.then(fit).catch(() => {});
+    return () => {
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   const scrollToForm = () => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -191,8 +230,10 @@ export default function ContentToCashPage() {
                   </span>
                 )}
               </div>
-              <h1>
-                How to Turn Your Instagram Content Into an Extra <span className="accent">$10K+/Month</span>
+              <h1 ref={headlineRef}>
+                <span ref={headlineInnerRef} className="headline-inner">
+                  How to Turn Your Instagram Content Into an Extra <span className="accent">$10K+/Month</span>
+                </span>
               </h1>
               <p className="stats-lead">
                 A free 60-minute masterclass on the exact <strong>Instagram Marketing Funnel</strong> behind:
@@ -409,11 +450,14 @@ export default function ContentToCashPage() {
         h1 {
           color: var(--white);
           font-weight: 800;
+          /* Fallback size; JS fits the exact size so it stays on two lines. */
           font-size: clamp(2rem, 5.4vw, 3.1rem);
           line-height: 1.12;
           letter-spacing: -0.02em;
           margin-bottom: 16px;
+          text-wrap: balance;
         }
+        .headline-inner { display: inline; }
         .accent {
           background: linear-gradient(135deg, #00d9ff, #009fee);
           -webkit-background-clip: text;
