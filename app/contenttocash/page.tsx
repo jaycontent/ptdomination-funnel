@@ -176,7 +176,7 @@ export default function ContentToCashPage() {
             <Image src="/ptd-logo-sm.webp" alt="PT Domination" width={168} height={55} className="logo" />
           </div>
           <div className="badge">
-            Free Live Masterclass · {webinar.shortDisplay}
+            Live on Zoom · {webinar.longDisplay}
             {!countdown.isExpired && (
               <span className="timer">
                 &nbsp;·&nbsp;starts in {countdown.days}d {pad(countdown.hours)}h {pad(countdown.minutes)}m{" "}
@@ -187,11 +187,9 @@ export default function ContentToCashPage() {
           <h1>
             How to Turn Your Instagram Content Into an Extra <span className="accent">$10K+/Month</span>
           </h1>
-          <p className="sub">
-            A free 60-minute masterclass on the exact <strong>Instagram Marketing Funnel</strong>, for
-            business owners doing $10K/month who want to scale.
+          <p className="stats-lead">
+            A free 60-minute masterclass on the exact <strong>Instagram Marketing Funnel</strong> behind:
           </p>
-          <div className="stats-eyebrow">The funnel behind:</div>
           <div className="stats">
             {STATS.map((s) => (
               <div className="stat" key={s.label}>
@@ -202,6 +200,7 @@ export default function ContentToCashPage() {
               </div>
             ))}
           </div>
+          <p className="stats-after">For business owners doing $10K/month who want to scale.</p>
         </div>
 
         {/* Video */}
@@ -333,7 +332,7 @@ export default function ContentToCashPage() {
           background: rgba(0, 217, 255, 0.1);
           border: 1px solid rgba(0, 217, 255, 0.3);
         }
-        .timer { color: #ff6b6b; }
+        .timer { color: var(--white); }
         h1 {
           color: var(--white);
           font-weight: 800;
@@ -348,38 +347,30 @@ export default function ContentToCashPage() {
           background-clip: text;
           -webkit-text-fill-color: transparent;
         }
-        .sub {
+        .stats-lead {
           color: var(--muted);
-          font-size: clamp(1.02rem, 2.3vw, 1.22rem);
-          max-width: 580px;
-          margin: 0 auto 26px;
+          font-size: clamp(1rem, 2.2vw, 1.18rem);
+          max-width: 560px;
+          margin: 0 auto 16px;
         }
-        .sub strong { color: var(--white); }
-        .stats-eyebrow {
-          color: var(--muted);
-          font-weight: 700;
-          font-size: 0.74rem;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          margin-bottom: 12px;
-        }
+        .stats-lead strong { color: var(--white); }
         .stats {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 12px;
-          max-width: 560px;
-          margin: 0 auto 34px;
+          gap: 10px;
+          max-width: 420px;
+          margin: 0 auto 14px;
         }
         .stat {
           background: var(--card);
           border: 1px solid var(--border);
-          border-radius: 14px;
-          padding: 18px 8px;
+          border-radius: 12px;
+          padding: 12px 6px;
           text-align: center;
         }
         .stat-num {
           font-weight: 800;
-          font-size: clamp(1.5rem, 6vw, 2.2rem);
+          font-size: clamp(1.15rem, 4.6vw, 1.6rem);
           line-height: 1;
           letter-spacing: -0.02em;
           background: linear-gradient(135deg, #00d9ff, #009fee);
@@ -389,12 +380,18 @@ export default function ContentToCashPage() {
           font-variant-numeric: tabular-nums;
         }
         .stat-label {
-          margin-top: 8px;
+          margin-top: 6px;
           color: var(--muted);
           font-weight: 700;
-          font-size: 0.68rem;
-          letter-spacing: 0.05em;
+          font-size: 0.6rem;
+          letter-spacing: 0.04em;
           text-transform: uppercase;
+        }
+        .stats-after {
+          color: var(--muted);
+          font-size: clamp(0.95rem, 2vw, 1.08rem);
+          max-width: 520px;
+          margin: 0 auto 34px;
         }
         .video-wrapper {
           border-radius: 16px;
