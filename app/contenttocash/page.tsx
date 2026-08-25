@@ -170,6 +170,7 @@ export default function ContentToCashPage() {
   const [pagePath, setPagePath] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [showMobileCta, setShowMobileCta] = useState(false);
 
   useEffect(() => {
     if (videoRef.current && !hasLoaded.current) {
@@ -261,6 +262,24 @@ export default function ContentToCashPage() {
     return () => {
       window.removeEventListener("resize", onResize);
       cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  // Show the mobile sticky CTA whenever the registration form is scrolled out of view.
+  useEffect(() => {
+    const onScroll = () => {
+      const el = formRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const inView = r.bottom > 40 && r.top < window.innerHeight - 40;
+      setShowMobileCta(!inView);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
     };
   }, []);
 
@@ -546,6 +565,15 @@ export default function ContentToCashPage() {
         </div>
       </div>
 
+      {/* Mobile-only sticky CTA — shown while the form is scrolled out of view */}
+      {showMobileCta && (
+        <div className="mobile-cta">
+          <button type="button" className="mobile-cta-btn" onClick={scrollToForm}>
+            Save My Spot on the Zoom Call →
+          </button>
+        </div>
+      )}
+
       <style jsx global>{`
         body { background: #0a0e1a !important; }
         /* Global because lucide icons are components — styled-jsx won't scope them. */
@@ -784,6 +812,38 @@ export default function ContentToCashPage() {
           transition: background 0.2s ease, border-color 0.2s ease;
         }
         .ghost-btn:hover { background: rgba(0, 159, 238, 0.12); border-color: rgba(0, 217, 255, 0.6); }
+
+        /* Mobile sticky CTA */
+        .mobile-cta {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 50;
+          padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+          background: rgba(10, 14, 26, 0.94);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border-top: 1px solid var(--border);
+          animation: cta-slide-up 0.25s ease;
+        }
+        @keyframes cta-slide-up {
+          from { transform: translateY(100%); }
+          to { transform: translateY(0); }
+        }
+        .mobile-cta-btn {
+          width: 100%;
+          padding: 15px;
+          border: none;
+          border-radius: 12px;
+          font-weight: 800;
+          font-size: 1.02rem;
+          color: #041016;
+          background: linear-gradient(135deg, #009fee, #00ffff);
+          box-shadow: 0 8px 26px rgba(0, 159, 238, 0.4);
+          cursor: pointer;
+        }
+        @media (min-width: 1024px) { .mobile-cta { display: none; } }
 
         /* Social proof + story (brought from Cash Flow Content) */
         .social-proof { margin-top: 56px; text-align: center; }
