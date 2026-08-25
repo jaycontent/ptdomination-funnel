@@ -12,10 +12,10 @@ const WISTIA_MEDIA_ID = "4jk4bimnaw";
 const webinar = getNextWebinarDate();
 
 const LEARN = [
-  "The Instagram Marketing Funnel — connection content, conversion value, and social proof — and exactly what to post at each stage",
+  "The Instagram Marketing Funnel: connection content, conversion value, and social proof, plus exactly what to post at each stage",
   "Why the 2026 algorithm suppresses your content, and the one metric that actually makes you go viral",
   "What to post to get followers vs. what to post to get clients",
-  "How to turn 30M+ views into DMs — and DMs into booked, qualified sales calls",
+  "How to turn 30M+ views into DMs, and DMs into booked, qualified sales calls",
   "The 3 content mistakes keeping you stuck: the conversion trap, the viral trap, and generic posting",
 ];
 
@@ -126,7 +126,9 @@ export default function ContentToCashPage() {
       <div className="wrap">
         {/* Hero */}
         <div className="hero">
-          <Image src="/ptd-logo-sm.webp" alt="PT Domination" width={168} height={55} className="logo" />
+          <div className="logo-wrap">
+            <Image src="/ptd-logo-sm.webp" alt="PT Domination" width={168} height={55} className="logo" />
+          </div>
           <div className="badge">
             Free Live Masterclass · {webinar.shortDisplay}
             {!countdown.isExpired && (
@@ -141,7 +143,7 @@ export default function ContentToCashPage() {
           </h1>
           <p className="sub">
             A free 60-minute masterclass on the exact <strong>Instagram Marketing Funnel</strong> behind
-            700K followers, 30M monthly views, and $50M in sales — for business owners doing $10K/month who
+            700K followers, 30M monthly views, and $50M in sales. For business owners doing $10K/month who
             want to scale.
           </p>
         </div>
@@ -260,7 +262,8 @@ export default function ContentToCashPage() {
         .wrap { max-width: 720px; margin: 0 auto; padding: 44px 20px 72px; }
 
         .hero { text-align: center; }
-        .logo { height: auto; margin-bottom: 22px; }
+        .logo-wrap { display: flex; justify-content: center; padding-bottom: 24px; }
+        .logo { height: auto; }
         .badge {
           display: inline-block;
           margin-bottom: 18px;

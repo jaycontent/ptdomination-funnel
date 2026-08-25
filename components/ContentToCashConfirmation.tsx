@@ -10,7 +10,7 @@ const INSTAGRAM_URL = "https://www.instagram.com/therealbrianmark/";
 
 const webinar = getNextWebinarDate();
 
-const CAL_TITLE = "The Instagram Marketing Funnel — Free Masterclass";
+const CAL_TITLE = "The Instagram Marketing Funnel Masterclass";
 const CAL_DETAILS = "Your Zoom link is in your email and texts. Show up live for the slides + live Q&A.";
 const GOOGLE_CAL =
   "https://www.google.com/calendar/render?action=TEMPLATE&text=" +
@@ -38,10 +38,10 @@ const ICS = [
 const APPLE_CAL = "data:text/calendar;charset=utf8," + encodeURIComponent(ICS);
 
 const EXPECT = [
-  "The Instagram Marketing Funnel — connection content, conversion value, and social proof — and what to post at each stage",
+  "The Instagram Marketing Funnel: connection content, conversion value, and social proof, plus what to post at each stage",
   "What to post to get followers vs. what to post to get clients",
   "How to turn views into DMs, and DMs into booked, qualified sales calls",
-  "Why the 2026 algorithm suppresses your reach — and the metric that makes you go viral",
+  "Why the 2026 algorithm suppresses your reach, and the metric that makes you go viral",
 ];
 
 const BONUSES = [
@@ -55,7 +55,7 @@ const BONUSES = [
     n: 2,
     eyebrow: "Live-only bonus",
     title: "Live Q&A at the End",
-    desc: "Stick around and Brian answers your content questions live — how to grow and sell on social media, tailored to your business.",
+    desc: "Stick around and Brian answers your content questions live. How to grow and sell on social media, tailored to your business.",
   },
 ];
 
@@ -82,7 +82,7 @@ export default function ContentToCashConfirmation() {
       <div className="conf">
         <div className="sticky-bar">
           <Check size={16} strokeWidth={3} />
-          <span>You&apos;re registered — check your email &amp; texts for the Zoom link.</span>
+          <span>You&apos;re registered. Check your email &amp; texts for the Zoom link.</span>
         </div>
 
         <div className="wrap">
@@ -91,7 +91,7 @@ export default function ContentToCashConfirmation() {
             <div className="check-badge">
               <CheckCircle2 size={38} strokeWidth={2.5} />
             </div>
-            <h1>You&apos;re Registered — Watch This First</h1>
+            <h1>You&apos;re Registered! Watch This First</h1>
             <p className="hero-sub">
               A couple of quick things to get the most out of the masterclass. Watch this short video, then
               do the two steps below.
@@ -118,7 +118,7 @@ export default function ContentToCashConfirmation() {
             </div>
             <p className="section-body">
               DM me the word <strong>BOOKED</strong> on Instagram and I&apos;ll send you a free training in
-              advance — so I give you value before you even show up.
+              advance, so I give you value before you even show up.
             </p>
             <a className="cta-btn primary" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
               <Instagram size={19} />
@@ -134,7 +134,7 @@ export default function ContentToCashConfirmation() {
             <h2>We&apos;ll Text &amp; Email You the Zoom Link</h2>
             <p>
               Your Zoom link is on its way to your inbox and phone. Show up live on{" "}
-              <strong>{webinar.dayName}</strong> — I&apos;ll reveal everything, no gatekeeping.
+              <strong>{webinar.dayName}</strong>. I&apos;ll reveal everything, no gatekeeping.
             </p>
             <div className="date-pill">
               <CalendarDays size={16} />
@@ -164,11 +164,11 @@ export default function ContentToCashConfirmation() {
           <blockquote className="testimonial">
             <p>
               &ldquo;My client K Capital scaled from 15,000 followers to{" "}
-              <strong>1.3 million — and from $80K/month to $2M/month.</strong> He&apos;s a business owner who
+              <strong>1.3 million, and from $80K/month to $2M/month.</strong> He&apos;s a business owner who
               wanted to learn how to grow and sell on social media. I&apos;ll give you the same funnel on the
               masterclass.&rdquo;
             </p>
-            <cite>— Brian Mark, PT Domination</cite>
+            <cite>Brian Mark, PT Domination</cite>
           </blockquote>
 
           {/* Bonuses */}
@@ -187,14 +187,14 @@ export default function ContentToCashConfirmation() {
               ))}
             </div>
             <p className="bonus-note">
-              I respect your time — so show up live and every minute will be worth it.
+              I respect your time, so show up live and every minute will be worth it.
             </p>
           </div>
 
           {/* Final CTA */}
           <div className="final">
             <p>
-              First step — DM me <strong>BOOKED</strong> on Instagram for your free training. See you on the
+              First step. DM me <strong>BOOKED</strong> on Instagram for your free training. See you on the
               inside.
             </p>
             <a className="cta-btn ghost" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
