@@ -11,6 +11,28 @@ import { useFbTrack } from "@/lib/useFbTrack";
 const WISTIA_MEDIA_ID = "4jk4bimnaw";
 const webinar = getNextWebinarDate();
 
+// Webinar-start fields for CRM mapping, matching the format used by the other
+// PT Domination webinar pages (webinar_display + a GHL "webinar<month><day>" tag).
+function buildWebinarFields(w: ReturnType<typeof getNextWebinarDate>) {
+  const d = new Date(w.iso);
+  const tzAbbr = (tz: string) =>
+    new Intl.DateTimeFormat("en-US", { timeZone: tz, timeZoneName: "short" })
+      .formatToParts(d)
+      .find((p) => p.type === "timeZoneName")?.value || "";
+  const pt = tzAbbr("America/Los_Angeles"); // PDT / PST
+  const et = tzAbbr("America/New_York"); // EDT / EST
+  const afterComma = w.longDisplay.split(", ")[1] || ""; // e.g. "August 27th"
+  const parts = afterComma.split(" ");
+  const monthName = parts[0] || "";
+  const day = (parts[1] || "").replace(/\D/g, "");
+  return {
+    webinar_datetime: w.iso,
+    webinar_display: `${w.dayName}, ${monthName} ${day}, at 4:30 PM ${pt} and 7:30 PM ${et}`,
+    webinar_month_and_date: `webinar${monthName.toLowerCase()}${day}`,
+  };
+}
+const webinarFields = buildWebinarFields(webinar);
+
 const LEARN = [
   "The Instagram Marketing Funnel: connection content, conversion value, and social proof, plus exactly what to post at each stage",
   "Why the 2026 algorithm suppresses your content, and the one metric that actually makes you go viral",
@@ -187,6 +209,7 @@ export default function ContentToCashPage() {
               : form.invest === "no"
               ? "No, I don't have money to invest."
               : "No answer",
+          ...webinarFields,
           page_path: pagePath,
           ...utm,
         }),
