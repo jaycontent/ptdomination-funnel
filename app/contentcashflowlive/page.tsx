@@ -37,27 +37,27 @@ const webinarFields = buildWebinarFields(webinar);
 const LEARN = [
   {
     lead: "The real reason your content isn’t turning into clients",
-    rest: " — it’s not your hooks, your lighting, or your work ethic. It’s one thing, nobody ever told you about it, and it’s fixable the same week you see it.",
+    rest: ": it’s not your hooks, your lighting, or your work ethic. It’s one thing, nobody ever told you about it, and it’s fixable the same week you see it.",
   },
   {
     lead: "The “Influencer Playbook” trap",
-    rest: " — why the growth advice you’ve been following was built to sell ads, not your offer, and why following it harder actually pushes buyers away.",
+    rest: ": why the growth advice you’ve been following was built to sell ads, not your offer, and why following it harder actually pushes buyers away.",
   },
   {
     lead: "The Conversation Engine, drawn on one slide",
-    rest: " — the 3-part machine that turns a normal Instagram account into booked sales calls. What each gear does, why it works when funnels don’t, and when to run each one.",
+    rest: ": the 3-part machine that turns a normal Instagram account into booked sales calls. What each gear does, why it works when funnels don’t, and when to run each one.",
   },
   {
     lead: "Why 598 followers beat 500,000",
-    rest: " — the math of tiny audiences that buy versus big audiences that watch, and how to know which one you’re building right now.",
+    rest: ": the math of tiny audiences that buy versus big audiences that watch, and how to know which one you’re building right now.",
   },
   {
     lead: "The crystal ball",
-    rest: " — Brian will read your prospects’ minds on the call, live, and show you where your next month of content is already sitting (you’re currently ignoring it).",
+    rest: ": Brian will read your prospects’ minds on the call, live, and show you where your next month of content is already sitting (you’re currently ignoring it).",
   },
   {
     lead: "Why this machine gets stronger every week you run it",
-    rest: " — while everybody else’s marketing gets more expensive every week they run it.",
+    rest: ", while everybody else’s marketing gets more expensive every week they run it.",
   },
 ];
 
@@ -118,7 +118,10 @@ export default function ContentCashFlowLivePage() {
     setSubmitError("");
     let ok = false;
     try {
-      const res = await fetch("/api/submit-contentcashflowlive", {
+      // Same pipeline as /contenttocash: the contenttocash_registrations table
+      // plus the Content-to-Cash Zapier hook. page_path ("/contentcashflowlive")
+      // is what tells these registrations apart from that page's.
+      const res = await fetch("/api/submit-contenttocash", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -164,21 +167,21 @@ export default function ContentCashFlowLivePage() {
         <div className="wrap center">
           <div className="eyebrow">Free Live Training for Business Owners</div>
           <h1>
-            How to Turn the Instagram Account You Already Have Into High&#8209;Ticket Clients —{" "}
+            How to Turn the Instagram Account You Already Have Into High&#8209;Ticket Clients,{" "}
             <span className="u">Without Funnels, Email Lists, Ads, or Tech</span>
           </h1>
           <p className="sub">
-            On this free training, Brian Mark — <b>$50M+ in sales, all from Instagram</b> — will draw out
+            On this free training, Brian Mark (<b>$50M+ in sales, all from Instagram</b>) will draw out
             the exact 3-part machine his clients use to turn everyday content into booked sales calls with
             people who already want to buy… including how a client with <b>598 followers</b> used it to
             have a <b>$15,000 month</b>.
           </p>
           <a className="btn" href="#register" onClick={scrollToForm}>
-            SAVE MY SEAT — FREE
+            SAVE MY SEAT (FREE)
           </a>
-          <div className="micro">Live on Zoom. No replay guaranteed — see event details below.</div>
+          <div className="micro">Live on Zoom. No replay guaranteed. See event details below.</div>
           <p className="teaser">
-            On this training Brian is drawing his entire “Conversation Engine” on one slide — the machine
+            On this training Brian is drawing his entire “Conversation Engine” on one slide, the machine
             behind every dollar above. Once you see it, you can’t unsee it.
           </p>
           <div className="hero-shot">
@@ -203,7 +206,7 @@ export default function ContentCashFlowLivePage() {
       <section className="details">
         <div className="wrap center">
           <div className="kicker">Event Details</div>
-          <h2>The Conversation Engine — Live</h2>
+          <h2>The Conversation Engine: Live</h2>
           <div className="detail-grid">
             <div className="card">
               <div className="lbl">What</div>
@@ -222,7 +225,7 @@ export default function ContentCashFlowLivePage() {
             <div className="card">
               <div className="lbl">Where</div>
               <div className="val">
-                Live on Zoom <em>— link arrives by email the moment you register</em>
+                Live on Zoom <em>(link arrives by email the moment you register)</em>
               </div>
             </div>
             <div className="card">
@@ -234,7 +237,7 @@ export default function ContentCashFlowLivePage() {
             </div>
           </div>
           <div className="replay">
-            <b>A word about the replay:</b> we may send a limited replay, we may not — Brian teaches with
+            <b>A word about the replay:</b> we may send a limited replay, we may not. Brian teaches with
             live audience answers on screen, and half of what makes this work can’t be replicated on a
             recording. Plan to be in the room.
           </div>
@@ -270,8 +273,8 @@ export default function ContentCashFlowLivePage() {
             </div>
             <div className="host-copy">
               <p>
-                Eleven years ago, Brian was a personal trainer posting into the void — no funnels, no email
-                list, no tech skills, no interest in learning any. What he figured out instead became the
+                Eleven years ago, Brian was a personal trainer posting into the void, with no funnels, no
+                email list, no tech skills, and no interest in learning any. What he figured out instead became the
                 machine his sales team now runs <b>thirty booked calls a day</b> on: content that starts
                 conversations, and conversations that become clients.
               </p>
@@ -279,7 +282,7 @@ export default function ContentCashFlowLivePage() {
                 Since then: <b>over $50 million in sales</b>, every dollar of it traceable to a post and a DM
                 on an app that’s already on your phone. He built PT Domination into one of the largest
                 coaching companies for fitness coaches on the planet, and today he teaches business owners of
-                every kind to run the same machine — from six-figure coaches to a client with 598 followers
+                every kind to run the same machine, from six-figure coaches to a client with 598 followers
                 who had a $15K month.
               </p>
               <p>
@@ -312,7 +315,7 @@ export default function ContentCashFlowLivePage() {
           <h2>One More Time, Plainly</h2>
           <p className="disq">
             If you’re a <b>business owner with a real offer and an Instagram account</b>, this training will
-            show you the machine. If you want to go viral and land brand deals — this isn’t for you, with
+            show you the machine. If you want to go viral and land brand deals, this isn’t for you, with
             love.
           </p>
 
@@ -349,7 +352,7 @@ export default function ContentCashFlowLivePage() {
               required
             />
             <button className="btn submit" type="submit" disabled={submitting}>
-              {submitting ? "SAVING YOUR SEAT…" : "SAVE MY SEAT — FREE"}
+              {submitting ? "SAVING YOUR SEAT…" : "SAVE MY SEAT (FREE)"}
             </button>
             {submitError && <div className="form-error">{submitError}</div>}
             <div className="form-micro">

@@ -15,7 +15,7 @@ const webinar = getNextWebinarDate();
 const CALENDAR_URL =
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
   "&text=" +
-  encodeURIComponent("Free Live Training with Brian Mark — The Conversation Engine") +
+  encodeURIComponent("Free Live Training with Brian Mark: The Conversation Engine") +
   "&dates=" +
   `${webinar.utcStart}/${webinar.utcEnd}` +
   "&details=" +
@@ -62,7 +62,7 @@ export default function ContentCashFlowLiveConfirmationPage() {
       <div className="hero">
         <div className="wrap center">
           <div className="eyebrow">You&rsquo;re In</div>
-          <h1>Your Seat Is Saved — Watch This First</h1>
+          <h1>Your Seat Is Saved. Watch This First</h1>
           <p className="sub">
             Your spot on <b>{webinar.longDisplay}</b> is confirmed. Watch this short video from Brian, then
             do the two things below so you get everything out of the training.
@@ -107,7 +107,7 @@ export default function ContentCashFlowLiveConfirmationPage() {
             <div className="step-body">
               <h3>DM Brian the word &ldquo;LIVE&rdquo;</h3>
               <p>
-                Send him <b>LIVE</b> on Instagram so he knows you&rsquo;re coming — he&rsquo;ll send you
+                Send him <b>LIVE</b> on Instagram so he knows you&rsquo;re coming, and he&rsquo;ll send you
                 something to work through before the training starts.
               </p>
               <a className="btn ghost" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
@@ -122,7 +122,7 @@ export default function ContentCashFlowLiveConfirmationPage() {
       <section className="details">
         <div className="wrap center">
           <div className="kicker">Event Details</div>
-          <h2>The Conversation Engine — Live</h2>
+          <h2>The Conversation Engine: Live</h2>
           <div className="detail-grid">
             <div className="card">
               <div className="lbl">When</div>
@@ -135,7 +135,7 @@ export default function ContentCashFlowLiveConfirmationPage() {
             <div className="card">
               <div className="lbl">Where</div>
               <div className="val">
-                Live on Zoom <em>— the link is in your confirmation email</em>
+                Live on Zoom <em>(the link is in your confirmation email)</em>
               </div>
             </div>
             <div className="card">
@@ -147,7 +147,7 @@ export default function ContentCashFlowLiveConfirmationPage() {
             </div>
           </div>
           <div className="replay">
-            <b>A word about the replay:</b> we may send a limited replay, we may not — Brian teaches with
+            <b>A word about the replay:</b> we may send a limited replay, we may not. Brian teaches with
             live audience answers on screen, and half of what makes this work can&rsquo;t be replicated on a
             recording. Plan to be in the room.
           </div>
