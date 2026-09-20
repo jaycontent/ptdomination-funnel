@@ -17,6 +17,12 @@ export interface WebinarDate {
 }
 
 export function getNextWebinarDate(): WebinarDate {
+  return getNextWebinarDateOnDays(WEBINAR_DAYS);
+}
+
+// Same 4:30 PM PST slot, but on the weekdays you pass in (0 = Sunday).
+// /contentcashflowlive runs Wednesdays, so it calls this with [3].
+export function getNextWebinarDateOnDays(days: number[]): WebinarDate {
   const now = new Date();
 
   // Work in PST by offsetting UTC
@@ -24,13 +30,13 @@ export function getNextWebinarDate(): WebinarDate {
   const nowPstMs = now.getTime() + pstOffset * 60 * 1000;
   const nowPst = new Date(nowPstMs);
 
-  // Find the next Mon or Thu that hasn't passed 4:30 PM PST yet
+  // Find the next webinar day that hasn't passed 4:30 PM PST yet
   for (let daysAhead = 0; daysAhead <= 7; daysAhead++) {
     const candidatePstMs = nowPstMs + daysAhead * 24 * 60 * 60 * 1000;
     const candidatePst = new Date(candidatePstMs);
     const dow = candidatePst.getUTCDay(); // 0=Sun in UTC but shifted by PST
 
-    if (!WEBINAR_DAYS.includes(dow)) continue;
+    if (!days.includes(dow)) continue;
 
     // Build the candidate start time in PST
     const candidateStart = new Date(Date.UTC(
@@ -80,7 +86,7 @@ export function getNextWebinarDate(): WebinarDate {
   }
 
   // Fallback: recurse with a clean slate (should never reach here)
-  return getNextWebinarDate();
+  return getNextWebinarDateOnDays(days);
 }
 
 export function formatDateRange(startDate: string, endDate: string, timezone: string): string {

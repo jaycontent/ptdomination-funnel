@@ -4,17 +4,20 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Script from "next/script";
-import { getNextWebinarDate } from "@/lib/date";
+import { getNextWebinarDateOnDays } from "@/lib/date";
 import { useFbTrack } from "@/lib/useFbTrack";
 
 const WISTIA_MEDIA_ID = "fcoxhrm1hr";
 const WISTIA_ASPECT = "1.8090452261306533";
 
-const webinar = getNextWebinarDate();
+// This training runs Wednesdays at 4:30 PM PST. The other webinar pages keep
+// the shared Mon/Thu schedule from getNextWebinarDate().
+const WEBINAR_DAYS = [3]; // Wednesday
+const webinar = getNextWebinarDateOnDays(WEBINAR_DAYS);
 
 // Webinar-start fields for CRM mapping, matching the format the other PT
 // Domination webinar pages send (webinar_display + a GHL "webinar<month><day>" tag).
-function buildWebinarFields(w: ReturnType<typeof getNextWebinarDate>) {
+function buildWebinarFields(w: ReturnType<typeof getNextWebinarDateOnDays>) {
   const d = new Date(w.iso);
   const tzAbbr = (tz: string) =>
     new Intl.DateTimeFormat("en-US", { timeZone: tz, timeZoneName: "short" })
@@ -176,10 +179,6 @@ export default function ContentCashFlowLivePage() {
             people who already want to buy… including how a client with <b>598 followers</b> used it to
             have a <b>$15,000 month</b>.
           </p>
-          <a className="btn" href="#register" onClick={scrollToForm}>
-            SAVE MY SEAT (FREE)
-          </a>
-          <div className="micro">Live on Zoom. No replay guaranteed. See event details below.</div>
           <p className="teaser">
             On this training Brian is drawing his entire “Conversation Engine” on one slide, the machine
             behind every dollar above. Once you see it, you can’t unsee it.
@@ -199,6 +198,10 @@ export default function ContentCashFlowLivePage() {
               “Every one of these calls started as a DM. Not one came from a funnel.”
             </div>
           </div>
+          <a className="btn" href="#register" onClick={scrollToForm}>
+            SAVE MY SEAT (FREE)
+          </a>
+          <div className="micro">Live on Zoom. No replay guaranteed. See event details below.</div>
         </div>
       </div>
 
@@ -502,10 +505,10 @@ export default function ContentCashFlowLivePage() {
           font-style: italic;
         }
 
-        /* hero video */
+        /* hero video, sits directly above the CTA */
         .hero-shot {
           max-width: 680px;
-          margin: 44px auto 0;
+          margin: 28px auto 32px;
         }
         .video {
           position: relative;

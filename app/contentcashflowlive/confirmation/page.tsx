@@ -2,13 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import Script from "next/script";
-import { getNextWebinarDate } from "@/lib/date";
+import { getNextWebinarDateOnDays } from "@/lib/date";
 
 const WISTIA_MEDIA_ID = "2yyxfjrgkv";
 const WISTIA_ASPECT = "1.8045112781954886";
 const INSTAGRAM_URL = "https://www.instagram.com/therealbrianmark/";
 
-const webinar = getNextWebinarDate();
+// Wednesdays at 4:30 PM PST, matching the landing page.
+const webinar = getNextWebinarDateOnDays([3]);
 
 // Add-to-calendar link for the live training itself, built from the same
 // webinar date the landing page registered against.
