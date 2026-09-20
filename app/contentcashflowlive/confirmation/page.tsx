@@ -11,19 +11,11 @@ const INSTAGRAM_URL = "https://www.instagram.com/therealbrianmark/";
 // Wednesdays at 4:30 PM PST, matching the landing page.
 const webinar = getNextWebinarDateOnDays([3]);
 
+// No add-to-calendar button here: Zoom issues each registrant their own join
+// link, so there is no shared URL a calendar event could point at.
+
 // Add-to-calendar link for the live training itself, built from the same
 // webinar date the landing page registered against.
-const CALENDAR_URL =
-  "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-  "&text=" +
-  encodeURIComponent("Free Live Training with Brian Mark: The Conversation Engine") +
-  "&dates=" +
-  `${webinar.utcStart}/${webinar.utcEnd}` +
-  "&details=" +
-  encodeURIComponent(
-    "Bring your phone, your Instagram open, and something to write with. The Zoom link is in your email."
-  );
-
 export default function ContentCashFlowLiveConfirmationPage() {
   const videoRef = useRef<HTMLDivElement>(null);
   const hasLoaded = useRef(false);
@@ -66,7 +58,7 @@ export default function ContentCashFlowLiveConfirmationPage() {
           <h1>Your Seat Is Saved. Watch This First</h1>
           <p className="sub">
             Your spot on <b>{webinar.longDisplay}</b> is confirmed. Watch this short video from Brian, then
-            do the two things below so you get everything out of the training.
+            do the one thing below so you get everything out of the training.
           </p>
           <div className="hero-shot">
             <div
@@ -86,25 +78,11 @@ export default function ContentCashFlowLiveConfirmationPage() {
       {/* NEXT STEPS */}
       <section className="steps">
         <div className="wrap center">
-          <div className="kicker">Two Things Before The Training</div>
-          <h2>Do These Now, They Take A Minute</h2>
+          <div className="kicker">One Thing Before The Training</div>
+          <h2>Do This Now, It Takes A Minute</h2>
 
           <div className="step-card">
             <div className="num">1</div>
-            <div className="step-body">
-              <h3>Add it to your calendar</h3>
-              <p>
-                The training is live on Zoom and there&rsquo;s no guaranteed replay. Put it in your calendar
-                now so nothing takes the slot.
-              </p>
-              <a className="btn" href={CALENDAR_URL} target="_blank" rel="noopener noreferrer">
-                ADD TO MY CALENDAR
-              </a>
-            </div>
-          </div>
-
-          <div className="step-card">
-            <div className="num">2</div>
             <div className="step-body">
               <h3>DM Brian the word &ldquo;LIVE&rdquo;</h3>
               <p>

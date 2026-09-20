@@ -564,6 +564,18 @@ export default function ContentCashFlowLivePage() {
           margin: 30px 0 6px;
           text-align: left;
         }
+
+        /* On desktop the detail cards sit on a single row. The section gets a
+           wider container than the rest of the page so they are not cramped;
+           auto-fit leaves room for a fifth card without wrapping. */
+        @media (min-width: 960px) {
+          .details .wrap {
+            max-width: 1120px;
+          }
+          .detail-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          }
+        }
         .card {
           background: #fff;
           border: 1px solid var(--line);
