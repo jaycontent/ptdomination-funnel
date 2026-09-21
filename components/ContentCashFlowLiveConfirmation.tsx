@@ -90,13 +90,13 @@ export default function ContentCashFlowLiveConfirmation({
           <div className="step-card">
             <div className="num">1</div>
             <div className="step-body">
-              <h3>DM Brian the word &ldquo;LIVE&rdquo;</h3>
+              <h3>DM Brian the word &ldquo;BOOKED&rdquo;</h3>
               <p>
-                Send him <b>LIVE</b> on Instagram so he knows you&rsquo;re coming, and he&rsquo;ll send you
+                Send him <b>BOOKED</b> on Instagram so he knows you&rsquo;re coming, and he&rsquo;ll send you
                 something to work through before the training starts.
               </p>
               <a className="btn ghost" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-                DM &lsquo;LIVE&rsquo; ON INSTAGRAM
+                DM &lsquo;BOOKED&rsquo; ON INSTAGRAM
               </a>
             </div>
           </div>
