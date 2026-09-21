@@ -177,7 +177,9 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
       {/* HERO */}
       <div className="hero">
         <div className="wrap center">
-          <div className="eyebrow">Free Live Training for Business Owners</div>
+          {/* No eyebrow pill here: the top bar already says "Free live training
+              for business owners", and repeating it pushed the video below the
+              fold on phones. */}
           <h1>
             How to Turn the Instagram Account You Already Have Into High&#8209;Ticket Clients,{" "}
             <span className="u">Without Funnels, Email Lists, Ads, or Tech</span>
@@ -468,21 +470,9 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
 
         /* hero */
         .hero {
-          padding: 64px 0 56px;
+          padding: 40px 0 48px;
           background: radial-gradient(1200px 500px at 50% -10%, #1d1d22 0%, var(--ink) 60%);
           color: #fff;
-        }
-        .eyebrow {
-          display: inline-block;
-          font-size: 12.5px;
-          font-weight: 800;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          color: var(--accent-soft);
-          border: 1px solid rgba(95, 208, 255, 0.45);
-          border-radius: 999px;
-          padding: 8px 18px;
-          margin-bottom: 28px;
         }
         h1 {
           font-size: clamp(30px, 5vw, 46px);
@@ -497,11 +487,11 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
           box-shadow: inset 0 -0.32em 0 rgba(0, 159, 238, 0.55);
         }
         .sub {
-          font-size: clamp(16px, 2.2vw, 19.5px);
-          line-height: 1.65;
+          font-size: clamp(16px, 2.2vw, 18.5px);
+          line-height: 1.55;
           color: #c9c7cf;
           max-width: 44em;
-          margin: 0 auto 34px;
+          margin: 0 auto;
         }
         .sub b {
           color: #fff;
@@ -538,14 +528,14 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
           font-size: 15px;
           color: #c9c7cf;
           max-width: 38em;
-          margin: 26px auto 0;
+          margin: 18px auto 0;
           font-style: italic;
         }
 
         /* hero video, sits directly above the CTA */
         .hero-shot {
           max-width: 680px;
-          margin: 28px auto 32px;
+          margin: 22px auto 26px;
         }
         .video {
           position: relative;
@@ -866,10 +856,7 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
           padding: 17px 24px;
         }
         .btn.submit:disabled {
-          opacity: 0.55;
-        }
-        .btn.submit:disabled {
-          opacity: 0.65;
+          opacity: 0.6;
           cursor: default;
           transform: none;
         }
@@ -908,11 +895,67 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
           section {
             padding: 48px 0;
           }
-          .hero {
-            padding: 48px 0 44px;
-          }
           .field-row {
             grid-template-columns: 1fr;
+          }
+
+          /* Phones: headline, video and CTA all have to land above the fold,
+             so the hero is tightened and the teaser paragraph is dropped. */
+          .hero {
+            padding: 16px 0 32px;
+          }
+          .wrap {
+            padding: 0 18px;
+          }
+          h1 {
+            font-size: 27px;
+            line-height: 1.12;
+            margin-bottom: 12px;
+          }
+          .sub {
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 0;
+          }
+          .teaser {
+            display: none;
+          }
+          .hero-shot {
+            margin: 18px auto 18px;
+          }
+          .btn {
+            font-size: 17px;
+            padding: 16px 32px;
+          }
+          .micro {
+            margin-top: 10px;
+            font-size: 12px;
+          }
+        }
+
+        /* Short phones (iPhone SE and friends) need another pass to keep the
+           CTA on screen. */
+        @media (max-width: 640px) and (max-height: 720px) {
+          .hero {
+            padding: 10px 0 24px;
+          }
+          h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+          }
+          .sub {
+            font-size: 14px;
+            line-height: 1.4;
+          }
+          .hero-shot {
+            margin: 10px auto 10px;
+          }
+          .btn {
+            font-size: 16px;
+            padding: 13px 26px;
+          }
+          .micro {
+            margin-top: 8px;
           }
         }
       `}</style>
