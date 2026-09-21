@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function ContentToCashConfirmationLayout({
+export default function ContentCashFlowLiveConfirmationBLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -1,20 +1,20 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'The Instagram Marketing Funnel — Free Masterclass',
+  title: 'Free Live Training: Turn Instagram Into High-Ticket Clients | Brian Mark',
   description:
-    'Free 60-minute masterclass for business owners doing $10K+/month: the exact Instagram marketing funnel behind 700K followers, 30M monthly views, and $50M in sales.',
+    'Free live training for business owners: the 3-part Conversation Engine Brian Mark uses to turn everyday Instagram content into booked sales calls, with no funnels, email lists, ads or tech.',
   openGraph: {
-    title: 'The Instagram Marketing Funnel — Free Masterclass',
+    title: 'Free Live Training: Turn Instagram Into High-Ticket Clients | Brian Mark',
     description:
-      'Free 60-minute masterclass: turn your Instagram content into cash. For business owners doing $10K+/month who want to scale.',
+      'The 3-part machine behind $50M+ in sales, all from Instagram. Live on Zoom, free.',
     images: [{ url: '/og-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Instagram Marketing Funnel — Free Masterclass',
+    title: 'Free Live Training: Turn Instagram Into High-Ticket Clients | Brian Mark',
     description:
-      'Free 60-minute masterclass: turn your Instagram content into cash. For business owners doing $10K+/month who want to scale.',
+      'The 3-part machine behind $50M+ in sales, all from Instagram. Live on Zoom, free.',
     images: [{ url: '/og-image.png' }],
   },
 };
