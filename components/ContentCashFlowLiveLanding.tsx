@@ -6,6 +6,7 @@ import Image from "next/image";
 import Script from "next/script";
 import { getNextWebinarDateOnDays } from "@/lib/date";
 import { useFbTrack } from "@/lib/useFbTrack";
+import styles from "./ContentCashFlowLiveLanding.module.css";
 
 const WISTIA_MEDIA_ID = "fcoxhrm1hr";
 const WISTIA_ASPECT = "1.8090452261306533";
@@ -159,7 +160,7 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
   };
 
   return (
-    <div className="live">
+    <div className={styles.live}>
       <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
       <Script
         src={`https://fast.wistia.com/embed/${WISTIA_MEDIA_ID}.js`}
@@ -167,7 +168,7 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
         type="module"
       />
 
-      <div className="topbar">
+      <div className={styles.topbar}>
         Free live training for business owners &nbsp;·&nbsp;{" "}
         <span>
           {webinar.longDisplay} at 7:30 PM ET
@@ -175,82 +176,83 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
       </div>
 
       {/* HERO */}
-      <div className="hero">
-        <div className="wrap center">
+      <div className={styles.hero}>
+        <div className={`${styles.wrap} ${styles.center}`}>
           {/* No eyebrow pill here: the top bar already says "Free live training
               for business owners", and repeating it pushed the video below the
               fold on phones. */}
           <h1>
             How to Turn the Instagram Account You Already Have Into High&#8209;Ticket Clients,{" "}
-            <span className="u">Without Funnels, Email Lists, Ads, or Tech</span>
+            <span className={styles.u}>Without Funnels, Email Lists, Ads, or Tech</span>
           </h1>
-          <p className="sub">
+          <p className={styles.sub}>
             On this free training, Brian Mark (<b>$50M+ in sales, all from Instagram</b>) will draw out
             the exact 3-part machine his clients use to turn everyday content into booked sales calls with
             people who already want to buy… including how a client with <b>598 followers</b> used it to
             have a <b>$15,000 month</b>.
           </p>
-          <p className="teaser">
+          <p className={styles.teaser}>
             On this training Brian is drawing his entire “Conversation Engine” on one slide, the machine
             behind every dollar above. Once you see it, you can’t unsee it.
           </p>
-          <div className="hero-shot">
+          <div className={styles.heroShot}>
             <div
               ref={videoRef}
-              className="video"
+              className={styles.video}
               style={{
+                aspectRatio: WISTIA_ASPECT,
                 background:
                   "center / contain no-repeat url('https://fast.wistia.com/embed/medias/" +
                   WISTIA_MEDIA_ID +
                   "/swatch')",
               }}
             />
-            <div className="caption">
+            <div className={styles.caption}>
               “Every one of these calls started as a DM. Not one came from a funnel.”
             </div>
           </div>
-          <a className="btn" href="#register" onClick={scrollToForm}>
+          <a className={styles.btn} href="#register" onClick={scrollToForm}>
             SAVE MY SEAT (FREE)
           </a>
-          <div className="micro">Live on Zoom. No replay guaranteed. See event details below.</div>
+          <div className={styles.micro}>Live on Zoom. No replay guaranteed. See event details below.</div>
         </div>
       </div>
 
       {/* EVENT DETAILS */}
-      <section className="details">
-        <div className="wrap center">
-          <div className="kicker">Event Details</div>
+      <section className={styles.details}>
+        <div className={`${styles.wrap} ${styles.center}`}>
+          <div className={styles.kicker}>Event Details</div>
           <h2>The Conversation Engine: Live</h2>
-          <div className="detail-grid">
-            <div className="card">
-              <div className="lbl">What</div>
-              <div className="val">
+          <div className={styles.detailGrid}>
+            <div className={styles.card}>
+              <div className={styles.lbl}>What</div>
+              <div className={styles.val}>
                 A free, live 60-minute training <em>+ live Q&amp;A after</em>
               </div>
             </div>
-            <div className="card">
-              <div className="lbl">When</div>
-              <div className="val">
+            <div className={styles.card}>
+              <div className={styles.lbl}>When</div>
+              <div className={styles.val}>
                 {webinar.longDisplay}
                 <br />
                 7:30 PM ET / 4:30 PM PT
               </div>
             </div>
-            <div className="card">
-              <div className="lbl">Where</div>
-              <div className="val">
+            <div className={styles.card}>
+              <div className={styles.lbl}>Where</div>
+              <div className={styles.val}>
                 Live on Zoom <em>(link arrives by email the moment you register)</em>
               </div>
             </div>
-            <div className="card">
-              <div className="lbl">Bring</div>
-              <div className="val">
+            <div className={styles.card}>
+              <div className={styles.lbl}>Bring</div>
+              <div className={styles.val}>
                 Your phone, your Instagram open, and something to write with.{" "}
                 <em>This is a working session, not a listening session.</em>
               </div>
             </div>
           </div>
-          <div className="replay">
+          <div className={styles.replay}>
             <b>A word about the replay:</b> we may send a limited replay, we may not. Brian teaches with
             live audience answers on screen, and half of what makes this work can’t be replicated on a
             recording. Plan to be in the room.
@@ -259,9 +261,9 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
       </section>
 
       {/* WHAT YOU'LL LEARN */}
-      <section className="learn">
-        <div className="wrap center">
-          <div className="kicker">On This Free Training</div>
+      <section className={styles.learn}>
+        <div className={`${styles.wrap} ${styles.center}`}>
+          <div className={styles.kicker}>On This Free Training</div>
           <h2>What You’ll Learn</h2>
           <ul>
             {LEARN.map((item) => (
@@ -275,17 +277,17 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
       </section>
 
       {/* HOST */}
-      <section className="host">
-        <div className="wrap">
-          <div className="center">
-            <div className="kicker">Meet Your Host</div>
+      <section className={styles.host}>
+        <div className={styles.wrap}>
+          <div className={styles.center}>
+            <div className={styles.kicker}>Meet Your Host</div>
             <h2>Brian Mark</h2>
           </div>
-          <div className="host-flex">
-            <div className="host-photo">
-              <Image src="/brianimage2.png" alt="Brian Mark" width={250} height={250} className="host-img" />
+          <div className={styles.hostFlex}>
+            <div className={styles.hostPhoto}>
+              <Image src="/brianimage2.png" alt="Brian Mark" width={250} height={250} className={styles.hostImg} />
             </div>
-            <div className="host-copy">
+            <div className={styles.hostCopy}>
               <p>
                 Eleven years ago, Brian was a personal trainer posting into the void, with no funnels, no
                 email list, no tech skills, and no interest in learning any. What he figured out instead became the
@@ -303,18 +305,18 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
                 He’s also sober, which matters here for one reason: Brian doesn’t do complicated. He does
                 simple, repeatable, and every single day. That’s exactly how he’ll teach you.
               </p>
-              <div className="stat-row">
-                <div className="stat">
-                  <div className="n">$50M+</div>
-                  <div className="l">In Sales</div>
+              <div className={styles.statRow}>
+                <div className={styles.stat}>
+                  <div className={styles.n}>$50M+</div>
+                  <div className={styles.l}>In Sales</div>
                 </div>
-                <div className="stat">
-                  <div className="n">30/day</div>
-                  <div className="l">Booked Calls</div>
+                <div className={styles.stat}>
+                  <div className={styles.n}>30/day</div>
+                  <div className={styles.l}>Booked Calls</div>
                 </div>
-                <div className="stat">
-                  <div className="n">0</div>
-                  <div className="l">Funnels Used</div>
+                <div className={styles.stat}>
+                  <div className={styles.n}>0</div>
+                  <div className={styles.l}>Funnels Used</div>
                 </div>
               </div>
             </div>
@@ -323,19 +325,19 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
       </section>
 
       {/* FINAL CTA + REGISTRATION */}
-      <section className="final" id="register" ref={formRef}>
-        <div className="wrap center">
-          <div className="kicker">Last Call</div>
+      <section className={styles.final} id="register" ref={formRef}>
+        <div className={`${styles.wrap} ${styles.center}`}>
+          <div className={styles.kicker}>Last Call</div>
           <h2>One More Time, Plainly</h2>
-          <p className="disq">
+          <p className={styles.disq}>
             If you’re a <b>business owner with a real offer and an Instagram account</b>, this training will
             show you the machine. If you want to go viral and land brand deals, this isn’t for you, with
             love.
           </p>
 
-          <form className="form-card" onSubmit={handleSubmit}>
+          <form className={styles.formCard} onSubmit={handleSubmit}>
             <h3>Save Your Seat on the Live Training</h3>
-            <div className="field-row">
+            <div className={styles.fieldRow}>
               <input
                 type="text"
                 placeholder="First name"
@@ -368,8 +370,8 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
 
             {/* Qualifier, same wording and options as the old Content-to-Cash
                 form. The answer decides which confirmation page they land on. */}
-            <div className="invest-block" role="radiogroup" aria-label="Would you invest?">
-              <p className="invest-q">
+            <div className={styles.investBlock} role="radiogroup" aria-label="Would you invest?">
+              <p className={styles.investQ}>
                 Would you invest in building out this content system if it means growing your business?
               </p>
               {[
@@ -384,25 +386,25 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
                     role="radio"
                     aria-checked={selected}
                     onClick={() => setForm({ ...form, invest: opt.value })}
-                    className={`invest-opt ${selected ? "sel" : ""}`}
+                    className={`${styles.investOpt} ${selected ? styles.sel : ""}`}
                   >
-                    <span className="radio-dot">{selected && <span className="radio-inner" />}</span>
-                    <span className="invest-opt-label">{opt.label}</span>
+                    <span className={styles.radioDot}>{selected && <span className={styles.radioInner} />}</span>
+                    <span className={styles.investOptLabel}>{opt.label}</span>
                   </button>
                 );
               })}
             </div>
 
-            <button className="btn submit" type="submit" disabled={submitting || !form.invest}>
+            <button className={`${styles.btn} ${styles.submit}`} type="submit" disabled={submitting || !form.invest}>
               {submitting ? "SAVING YOUR SEAT…" : "SAVE MY SEAT (FREE)"}
             </button>
-            {submitError && <div className="form-error">{submitError}</div>}
-            <div className="form-micro">
+            {submitError && <div className={styles.formError}>{submitError}</div>}
+            <div className={styles.formMicro}>
               We’ll text and email you the Zoom link. No spam, unsubscribe any time.
             </div>
           </form>
 
-          <div className="micro muted">
+          <div className={`${styles.micro} ${styles.muted}`}>
             Live on Zoom · {webinar.longDisplay} at 7:30 PM ET · Free
           </div>
         </div>
@@ -416,549 +418,7 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
         client-reported and not typical.
       </footer>
 
-      <style jsx global>{`
-        body {
-          background: #ffffff !important;
-        }
-      `}</style>
 
-      <style jsx>{`
-        .live {
-          /* Red from the original comp swapped for the site's blue (#009fee). */
-          --ink: #0d0d0f;
-          --body: #3a3a3e;
-          --muted: #77737a;
-          --accent: #009fee;
-          --accent-dark: #0080d6;
-          --accent-soft: #5fd0ff;
-          --panel: #f6f5f3;
-          --line: #e6e3dd;
-          --paper: #ffffff;
-
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-          color: var(--body);
-          background: var(--paper);
-          line-height: 1.6;
-          font-size: 17px;
-        }
-        .live :global(*) {
-          box-sizing: border-box;
-        }
-        .wrap {
-          max-width: 840px;
-          margin: 0 auto;
-          padding: 0 24px;
-        }
-        .center {
-          text-align: center;
-        }
-
-        /* top bar */
-        .topbar {
-          background: var(--ink);
-          color: #fff;
-          text-align: center;
-          padding: 10px 16px;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-        }
-        .topbar span {
-          color: var(--accent-soft);
-        }
-
-        /* hero */
-        .hero {
-          padding: 40px 0 48px;
-          background: radial-gradient(1200px 500px at 50% -10%, #1d1d22 0%, var(--ink) 60%);
-          color: #fff;
-        }
-        h1 {
-          font-size: clamp(30px, 5vw, 46px);
-          line-height: 1.13;
-          font-weight: 900;
-          color: #fff;
-          letter-spacing: -0.01em;
-          max-width: 20em;
-          margin: 0 auto 22px;
-        }
-        h1 .u {
-          box-shadow: inset 0 -0.32em 0 rgba(0, 159, 238, 0.55);
-        }
-        .sub {
-          font-size: clamp(16px, 2.2vw, 18.5px);
-          line-height: 1.55;
-          color: #c9c7cf;
-          max-width: 44em;
-          margin: 0 auto;
-        }
-        .sub b {
-          color: #fff;
-        }
-
-        .btn {
-          display: inline-block;
-          background: var(--accent);
-          color: #fff;
-          text-decoration: none;
-          font-size: 19px;
-          font-weight: 800;
-          letter-spacing: 0.03em;
-          padding: 19px 44px;
-          border-radius: 12px;
-          box-shadow: 0 10px 26px rgba(0, 159, 238, 0.38);
-          transition: transform 0.1s ease, background 0.15s ease;
-          border: none;
-          cursor: pointer;
-        }
-        .btn:hover {
-          background: var(--accent-dark);
-          transform: translateY(-1px);
-        }
-        .micro {
-          font-size: 13px;
-          color: #8f8c96;
-          margin-top: 14px;
-        }
-        .micro.muted {
-          color: var(--muted);
-        }
-        .teaser {
-          font-size: 15px;
-          color: #c9c7cf;
-          max-width: 38em;
-          margin: 18px auto 0;
-          font-style: italic;
-        }
-
-        /* hero video, sits directly above the CTA */
-        .hero-shot {
-          max-width: 680px;
-          margin: 22px auto 26px;
-        }
-        .video {
-          position: relative;
-          width: 100%;
-          aspect-ratio: ${WISTIA_ASPECT};
-          border-radius: 14px;
-          overflow: hidden;
-          border: 1px solid #34323a;
-          background: #232228;
-        }
-        .video :global(wistia-player) {
-          width: 100%;
-          height: 100%;
-        }
-        .caption {
-          font-size: 14px;
-          font-style: italic;
-          color: #a5a2ab;
-          margin-top: 12px;
-        }
-
-        /* sections */
-        section {
-          padding: 64px 0;
-        }
-        .kicker {
-          font-size: 12.5px;
-          font-weight: 800;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          color: var(--accent);
-          margin-bottom: 14px;
-        }
-        h2 {
-          font-size: clamp(24px, 3.6vw, 33px);
-          line-height: 1.2;
-          font-weight: 900;
-          color: var(--ink);
-          letter-spacing: -0.01em;
-          margin-bottom: 18px;
-        }
-
-        /* event details */
-        .details {
-          background: var(--panel);
-          border-top: 1px solid var(--line);
-          border-bottom: 1px solid var(--line);
-        }
-        .detail-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-          gap: 14px;
-          margin: 30px 0 6px;
-          text-align: left;
-        }
-
-        /* On desktop the detail cards sit on a single row. The section gets a
-           wider container than the rest of the page so they are not cramped;
-           auto-fit leaves room for a fifth card without wrapping. */
-        @media (min-width: 960px) {
-          .details .wrap {
-            max-width: 1120px;
-          }
-          .detail-grid {
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-          }
-        }
-        .card {
-          background: #fff;
-          border: 1px solid var(--line);
-          border-radius: 14px;
-          padding: 20px 22px;
-        }
-        .card .lbl {
-          font-size: 11.5px;
-          font-weight: 800;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: var(--muted);
-          margin-bottom: 6px;
-        }
-        .card .val {
-          font-size: 16.5px;
-          font-weight: 700;
-          color: var(--ink);
-          line-height: 1.45;
-        }
-        .card .val em {
-          font-weight: 400;
-          font-style: normal;
-          color: var(--body);
-          font-size: 15px;
-        }
-        .replay {
-          max-width: 44em;
-          margin: 26px auto 0;
-          font-size: 15.5px;
-          color: var(--body);
-          background: #fff;
-          border: 1px solid var(--line);
-          border-left: 4px solid var(--accent);
-          border-radius: 10px;
-          padding: 18px 22px;
-          text-align: left;
-        }
-        .replay b {
-          color: var(--ink);
-        }
-
-        /* learn */
-        .learn ul {
-          list-style: none;
-          max-width: 720px;
-          margin: 34px auto 0;
-          text-align: left;
-          padding: 0;
-        }
-        .learn li {
-          position: relative;
-          padding: 0 0 0 46px;
-          margin-bottom: 26px;
-          font-size: 16.5px;
-        }
-        .learn li:last-child {
-          margin-bottom: 0;
-        }
-        .learn li::before {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 2px;
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
-          background: var(--accent);
-          opacity: 0.12;
-        }
-        .learn li::after {
-          content: "✓";
-          position: absolute;
-          left: 7px;
-          top: 1px;
-          color: var(--accent);
-          font-weight: 900;
-          font-size: 16px;
-        }
-        .learn b {
-          color: var(--ink);
-        }
-
-        /* host */
-        .host {
-          background: var(--ink);
-          color: #cfccd4;
-        }
-        .host h2 {
-          color: #fff;
-        }
-        .host-flex {
-          display: flex;
-          gap: 40px;
-          align-items: flex-start;
-          margin-top: 34px;
-          text-align: left;
-        }
-        .host-photo {
-          flex: 0 0 250px;
-        }
-        .host-photo :global(.host-img) {
-          width: 100%;
-          height: auto;
-          border-radius: 14px;
-        }
-        .host-copy p {
-          margin-bottom: 16px;
-          font-size: 16.5px;
-        }
-        .host-copy b {
-          color: #fff;
-        }
-        .stat-row {
-          display: flex;
-          gap: 14px;
-          flex-wrap: wrap;
-          margin-top: 24px;
-        }
-        .stat {
-          background: #1c1b21;
-          border: 1px solid #34323a;
-          border-radius: 12px;
-          padding: 14px 20px;
-          min-width: 140px;
-        }
-        .stat .n {
-          font-size: 22px;
-          font-weight: 900;
-          color: #fff;
-        }
-        .stat .l {
-          font-size: 12px;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: #8f8c96;
-          margin-top: 2px;
-        }
-
-        /* final cta + form */
-        .final .disq {
-          max-width: 40em;
-          margin: 0 auto 30px;
-          font-size: 17.5px;
-          color: var(--body);
-        }
-        .final .disq b {
-          color: var(--ink);
-        }
-        .form-card {
-          max-width: 460px;
-          margin: 0 auto;
-          background: var(--panel);
-          border: 1px solid var(--line);
-          border-radius: 16px;
-          padding: 28px 26px;
-          text-align: left;
-        }
-        .form-card h3 {
-          font-size: 20px;
-          font-weight: 900;
-          color: var(--ink);
-          margin-bottom: 18px;
-          text-align: center;
-        }
-        .field-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 10px;
-        }
-        .form-card input {
-          width: 100%;
-          font-family: inherit;
-          font-size: 16px;
-          color: var(--ink);
-          background: #fff;
-          border: 1px solid var(--line);
-          border-radius: 10px;
-          padding: 13px 14px;
-          margin-bottom: 10px;
-        }
-        .form-card input::placeholder {
-          color: #a9a5ab;
-        }
-        .form-card input:focus {
-          outline: none;
-          border-color: var(--accent);
-          box-shadow: 0 0 0 3px rgba(0, 159, 238, 0.15);
-        }
-        /* qualifying question */
-        .invest-block {
-          margin: 16px 0 4px;
-          display: grid;
-          gap: 8px;
-        }
-        .invest-q {
-          font-size: 14.5px;
-          font-weight: 700;
-          color: var(--ink);
-          line-height: 1.4;
-          margin-bottom: 2px;
-        }
-        .invest-opt {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          width: 100%;
-          text-align: left;
-          font-family: inherit;
-          font-size: 15px;
-          color: var(--body);
-          background: #fff;
-          border: 1px solid var(--line);
-          border-radius: 10px;
-          padding: 12px 14px;
-          cursor: pointer;
-          transition: border-color 0.15s ease, background 0.15s ease;
-        }
-        .invest-opt:hover {
-          border-color: var(--accent);
-        }
-        .invest-opt.sel {
-          border-color: var(--accent);
-          background: rgba(0, 159, 238, 0.07);
-          color: var(--ink);
-          font-weight: 600;
-        }
-        .radio-dot {
-          flex: 0 0 18px;
-          height: 18px;
-          border-radius: 50%;
-          border: 2px solid #c6c2bb;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .invest-opt.sel .radio-dot {
-          border-color: var(--accent);
-        }
-        .radio-inner {
-          width: 9px;
-          height: 9px;
-          border-radius: 50%;
-          background: var(--accent);
-        }
-
-        .btn.submit {
-          width: 100%;
-          margin-top: 6px;
-          font-size: 17px;
-          padding: 17px 24px;
-        }
-        .btn.submit:disabled {
-          opacity: 0.6;
-          cursor: default;
-          transform: none;
-        }
-        .form-error {
-          margin-top: 10px;
-          font-size: 14px;
-          font-weight: 700;
-          color: #c9331e;
-          text-align: center;
-        }
-        .form-micro {
-          margin-top: 12px;
-          font-size: 12.5px;
-          color: var(--muted);
-          text-align: center;
-        }
-
-        footer {
-          border-top: 1px solid var(--line);
-          padding: 26px 24px;
-          text-align: center;
-          font-size: 12.5px;
-          color: var(--muted);
-        }
-
-        @media (max-width: 640px) {
-          .host-flex {
-            flex-direction: column;
-          }
-          .host-photo {
-            flex: none;
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-          }
-          section {
-            padding: 48px 0;
-          }
-          .field-row {
-            grid-template-columns: 1fr;
-          }
-
-          /* Phones: headline, video and CTA all have to land above the fold,
-             so the hero is tightened and the teaser paragraph is dropped. */
-          .hero {
-            padding: 16px 0 32px;
-          }
-          .wrap {
-            padding: 0 18px;
-          }
-          h1 {
-            font-size: 27px;
-            line-height: 1.12;
-            margin-bottom: 12px;
-          }
-          .sub {
-            font-size: 15px;
-            line-height: 1.5;
-            margin-bottom: 0;
-          }
-          .teaser {
-            display: none;
-          }
-          .hero-shot {
-            margin: 18px auto 18px;
-          }
-          .btn {
-            font-size: 17px;
-            padding: 16px 32px;
-          }
-          .micro {
-            margin-top: 10px;
-            font-size: 12px;
-          }
-        }
-
-        /* Short phones (iPhone SE and friends) need another pass to keep the
-           CTA on screen. */
-        @media (max-width: 640px) and (max-height: 720px) {
-          .hero {
-            padding: 10px 0 24px;
-          }
-          h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-          }
-          .sub {
-            font-size: 14px;
-            line-height: 1.4;
-          }
-          .hero-shot {
-            margin: 10px auto 10px;
-          }
-          .btn {
-            font-size: 16px;
-            padding: 13px 26px;
-          }
-          .micro {
-            margin-top: 8px;
-          }
-        }
-      `}</style>
     </div>
   );
 }

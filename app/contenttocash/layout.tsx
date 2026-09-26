@@ -19,6 +19,16 @@ export const metadata: Metadata = {
   },
 };
 
+// globals.css paints html/body dark for the rest of the site; this funnel is
+// light. The rule ships in the server-rendered HTML so the correct background
+// is there on first paint.
+const BODY_BG = 'html,body{background:#ffffff}';
+
 export default function ContentToCashLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: BODY_BG }} />
+      {children}
+    </>
+  );
 }
