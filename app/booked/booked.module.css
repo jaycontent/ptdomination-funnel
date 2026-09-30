@@ -1,0 +1,183 @@
+/* Booking page styles. A CSS module rather than styled-jsx so Next ships them
+   in the stylesheet the browser has before first paint. Palette matches
+   /cashflowcontent, the page this one follows. */
+
+.page {
+  --black: #030712;
+  --card: #111827;
+  --card-border: #1f2937;
+  --blue: #00d9ff;
+  --blue-dim: #0088ff;
+  --white: #f5f2ed;
+  --muted: #9ca3af;
+  --body: #d1d5db;
+
+  background: var(--black);
+  color: var(--body);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 56px 0 28px;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 560px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  border: 1px solid var(--blue-dim);
+  border-radius: 999px;
+  padding: 8px 18px;
+  margin-bottom: 22px;
+}
+
+.page h1 {
+  font-size: clamp(2rem, 5.2vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+
+.accent {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dim) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sub {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.sub strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* Calendar */
+.calSection {
+  padding-bottom: 40px;
+}
+
+.calCard {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.calHeader {
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--card-border);
+  background: linear-gradient(180deg, rgba(0, 217, 255, 0.06) 0%, transparent 100%);
+  text-align: center;
+}
+
+.calHeader h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.calHeader p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.calEmbed {
+  min-width: 320px;
+  height: 760px;
+}
+
+/* What to expect */
+.notes {
+  padding: 0 0 72px;
+}
+
+.notesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.note {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+
+.noteLabel {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.noteBody {
+  font-size: 0.95rem;
+  color: var(--body);
+  margin: 0;
+}
+
+.noteBody strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.footer {
+  border-top: 1px solid var(--card-border);
+  padding: 28px 20px 60px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.footer p {
+  margin: 0 0 4px;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 36px 0 20px;
+  }
+  .calEmbed {
+    height: 900px;
+  }
+}
