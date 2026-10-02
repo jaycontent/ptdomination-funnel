@@ -7,7 +7,8 @@ import { useFbTrack } from "@/lib/useFbTrack";
 import { Check, MessageSquareText, Instagram } from "lucide-react";
 import styles from "./ApplicationReceived.module.css";
 
-const WISTIA_MEDIA_ID = "edhhehvssc";
+// Default is the application thank-you video; the post-booking page passes its own.
+const DEFAULT_WISTIA_ID = "edhhehvssc";
 const SMS_NUMBER_DISPLAY = "+1 (424) 766-4510";
 // Cross-platform SMS deep link with a pre-filled body ("cash flow").
 const SMS_HREF = "sms:+14247664510?&body=cash%20flow";
@@ -56,10 +57,12 @@ export default function ApplicationReceived({
   joinDate = "August 07th",
   variant = "application",
   pixelEvent = "SubmitApplication",
+  wistiaId = DEFAULT_WISTIA_ID,
 }: {
   joinDate?: string;
   variant?: keyof typeof COPY;
   pixelEvent?: string;
+  wistiaId?: string;
 }) {
   const copy = COPY[variant];
   useFbTrack(pixelEvent);
@@ -77,7 +80,7 @@ export default function ApplicationReceived({
   useEffect(() => {
     if (videoContainerRef.current && !hasLoadedVideo.current) {
       hasLoadedVideo.current = true;
-      videoContainerRef.current.innerHTML = `<wistia-player media-id="${WISTIA_MEDIA_ID}" aspect="1.7777777777777777"></wistia-player>`;
+      videoContainerRef.current.innerHTML = `<wistia-player media-id="${wistiaId}" aspect="1.7777777777777777"></wistia-player>`;
     }
   }, []);
 
@@ -96,7 +99,7 @@ export default function ApplicationReceived({
     <div className={styles.arPage}>
       <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
       <Script
-        src={`https://fast.wistia.com/embed/${WISTIA_MEDIA_ID}.js`}
+        src={`https://fast.wistia.com/embed/${wistiaId}.js`}
         strategy="afterInteractive"
         type="module"
       />
@@ -127,7 +130,7 @@ export default function ApplicationReceived({
             style={{
               background:
                 "center / contain no-repeat url('https://fast.wistia.com/embed/medias/" +
-                WISTIA_MEDIA_ID +
+                wistiaId +
                 "/swatch')",
             }}
           />

@@ -58,7 +58,7 @@ const STORY_2: string[] = [
 
 const CLOSING: string[] = [
   "Understand that application does not guarantee entry.",
-  "We will be receiving hundreds of applications for this launch and we are only looking to take on those who are ready, committed, and prepared to do whatever it takes to get their social media to the next level.",
+  "We receive hundreds of applications and we only take on those who are ready, committed, and prepared to do whatever it takes to get their social media to the next level.",
   "This is for business owners who want to grow and sell on social media. Business owners that are prepared to do the work required. Business owners that we don't have to CONVINCE that social media is the engine that will dramatically transform their lives, their families' lives, and the lives of everyone you get to impact and reach because of social media.",
   "This isn't just about you. It's about all the people in the world that need to hear your message.",
 ];
@@ -190,7 +190,7 @@ export default function CashFlowContentPage() {
             to show you how to generate mass amounts of attention and then turn those eyeballs into paying
             customers consistently and predictably.
           </p>
-          <p className="form-callout">Fill out the form below to join the waitlist 👇🏽</p>
+          <p className="form-callout">Fill out the application below 👇🏽</p>
         </section>
 
         {/* Waitlist (Typeform) */}
@@ -253,7 +253,7 @@ export default function CashFlowContentPage() {
         <section className="final-cta">
           <h2 className="reveal">Welcome to Cash Flow Content.</h2>
           <p className="reveal first-step">
-            <span className="phase-label">First step</span> — put your name on the waitlist.
+            <span className="phase-label">First step</span> — fill out your application.
           </p>
           {CLOSING.map((p, i) => (
             <p key={`c-${i}`} className="reveal">
@@ -274,10 +274,10 @@ export default function CashFlowContentPage() {
 
           <h3 className="reveal welcome-2">Welcome to Cash Flow Content.</h3>
           <p className="reveal">
-            We will be reviewing applications starting <strong>August 07</strong> and we will be reaching
-            out to those people who we believe will be the best fit for the program.
+            We&rsquo;re reviewing applications right now and reaching out to the people we believe will be
+            the best fit for the program.
           </p>
-          <p className="reveal stay-tuned">Stay tuned. Can&apos;t wait to see you on the inside.</p>
+          <p className="reveal stay-tuned">Apply below &mdash; we&rsquo;ll be in touch soon.</p>
 
           <button className="cta-btn" onClick={scrollToWaitlist}>
             Apply For The System
