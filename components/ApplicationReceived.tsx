@@ -20,15 +20,48 @@ const IF_LINES = [
   "And if you’re READY TO LEARN how to turn the attention you get on social media into paying customers…",
 ];
 
-// joinDate is the launch date in the letter; pixelEvent lets the booking
-// confirmation report a Schedule instead of an application submit.
+// The booking variant blends the two: it confirms the call and points at the
+// Zoom link, then runs the same two confirmation steps and letter.
+const COPY = {
+  application: {
+    badge: "Application Received",
+    headlineLead: "You’re on the list — now ",
+    headlineAccent: "2 quick steps",
+    headlineTail: " to confirm it.",
+    sub: "Complete both to lock in your spot and make sure Brian gets your application.",
+    stand: "You’ve just applied, but application does not guarantee entry.",
+    confirmLine:
+      "DM me “CASH FLOW” on Instagram so that I can confirm that I’ve received your application and be on the lookout for my emails.",
+    dmStepDesc:
+      "Opens Brian’s Instagram — send him a DM that says “cash flow” to confirm your application.",
+  },
+  booking: {
+    badge: "Call Confirmed",
+    headlineLead: "Your call is booked — now ",
+    headlineAccent: "2 quick steps",
+    headlineTail: " before we talk.",
+    sub: "Check your email, we just sent you the Zoom link. Then finish both steps below so Brian knows you’re coming.",
+    stand: "You’ve booked your call, but a booked call does not guarantee entry.",
+    confirmLine:
+      "DM me “CASH FLOW” on Instagram so that I can confirm your call and be on the lookout for my emails.",
+    dmStepDesc:
+      "Opens Brian’s Instagram — send him a DM that says “cash flow” to confirm your call.",
+  },
+} as const;
+
+// joinDate is the launch date in the letter; variant switches between the
+// application and post-booking copy; pixelEvent lets the booking confirmation
+// report a Schedule instead of an application submit.
 export default function ApplicationReceived({
   joinDate = "August 07th",
+  variant = "application",
   pixelEvent = "SubmitApplication",
 }: {
   joinDate?: string;
+  variant?: keyof typeof COPY;
   pixelEvent?: string;
 }) {
+  const copy = COPY[variant];
   useFbTrack(pixelEvent);
   const [done, setDone] = useState<boolean[]>([false, false]);
   const videoContainerRef = useRef<HTMLDivElement>(null);
@@ -72,16 +105,18 @@ export default function ApplicationReceived({
         {/* Header */}
         <div className={styles.badge}>
           <Check size={18} strokeWidth={3} />
-          Application Received
+          {copy.badge}
         </div>
         <div className={styles.logoRow}>
           <Image src="/ptd-logo-sm.webp" alt="PT Domination" width={150} height={50} className={styles.logo} />
         </div>
         <h1>
-          You’re on the list — now <span className={styles.accent}>2 quick steps</span> to confirm it.
+          {copy.headlineLead}
+          <span className={styles.accent}>{copy.headlineAccent}</span>
+          {copy.headlineTail}
         </h1>
         <p className={styles.sub}>
-          Complete both to lock in your spot and make sure Brian gets your application.
+          {copy.sub}
         </p>
 
         {/* Welcome video */}
@@ -131,7 +166,7 @@ export default function ApplicationReceived({
                 DM <span className={styles.accent}>“CASH FLOW”</span> to @therealbrianmark on Instagram
               </div>
               <p className={styles.stepDesc}>
-                Opens Brian’s Instagram — send him a DM that says “cash flow” to confirm your application.
+                {copy.dmStepDesc}
               </p>
               <a
                 className={`${styles.stepBtn} ${styles.ig}`}
@@ -161,9 +196,9 @@ export default function ApplicationReceived({
             across all social media platforms.
           </p>
           <p>
-            You’ve just applied, but application does not guarantee entry. We are capping enrollment for a
-            reason — our intention is to ensure that the clients that we work with grow on social media,
-            make more money, and have raving things to say about us as a result of this experience.
+            {copy.stand} We are capping enrollment for a reason — our intention is to ensure that the
+            clients that we work with grow on social media, make more money, and have raving things to say
+            about us as a result of this experience.
           </p>
           <p>
             Over the course of the next 7 days you will receive 7 text messages and emails.{" "}
@@ -184,8 +219,7 @@ export default function ApplicationReceived({
             founding members to join us on <strong>{joinDate}</strong>.
           </p>
           <p className={styles.highlight}>
-            DM me “CASH FLOW” on Instagram so that I can confirm that I’ve received your application and be
-            on the lookout for my emails.
+            {copy.confirmLine}
           </p>
           <p>Talk soon.</p>
           <p className={styles.signature}>— Brian Mark</p>
