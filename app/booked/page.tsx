@@ -13,13 +13,17 @@ const CALENDLY_URL =
 // Dark theme to match the page, plus the params Calendly needs for an inline embed.
 const CALENDLY_EMBED = `${CALENDLY_URL}&hide_gdpr_banner=1&background_color=111827&text_color=f5f2ed&primary_color=00d9ff`;
 
+// Floor for the embed, so a short step cannot collapse the card.
+const MIN_CAL_HEIGHT = 820;
+
 export default function BookedPage() {
   useFbTrack("PageView");
   const router = useRouter();
 
-  // Calendly reports how tall its content is on every step. Growing the
-  // container to match is what keeps the widget from scrolling inside itself;
-  // the starting value is a tall-enough guess for the first paint.
+  // Calendly reports how tall its content is on every step. Matching the
+  // container to that is what keeps the widget from scrolling inside itself.
+  // The initial value is a tall-enough guess for the first paint, before any
+  // message arrives.
   const [calHeight, setCalHeight] = useState(1100);
 
   useEffect(() => {
@@ -35,9 +39,11 @@ export default function BookedPage() {
 
       if (e.data?.event === "calendly.page_height") {
         const reported = parseInt(String(e.data.payload?.height ?? ""), 10);
-        // Never shrink below the first-paint height, or short steps would leave
-        // a gap and tall ones would start scrolling again.
-        if (!Number.isNaN(reported)) setCalHeight((h) => Math.max(h, reported));
+        // Calendly emits a couple of tiny heights while it boots, so floor the
+        // value; the buffer absorbs rounding so no step ends up a few pixels short.
+        if (!Number.isNaN(reported) && reported > 400) {
+          setCalHeight(Math.max(reported + 24, MIN_CAL_HEIGHT));
+        }
       }
     };
     window.addEventListener("message", onMessage);

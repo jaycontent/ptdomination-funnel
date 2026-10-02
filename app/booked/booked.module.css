@@ -122,7 +122,7 @@
   /* Height is set inline from Calendly's reported content height, so the
      widget never scrolls inside itself. This is only the floor. */
   min-width: 320px;
-  min-height: 1100px;
+  min-height: 820px;
   overflow: hidden;
 }
 
@@ -181,6 +181,6 @@
     padding: 36px 0 20px;
   }
   .calEmbed {
-    min-height: 1150px;
+    min-height: 820px;
   }
 }
