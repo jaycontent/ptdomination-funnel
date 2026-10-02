@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { useFbTrack } from "@/lib/useFbTrack";
@@ -17,17 +17,27 @@ export default function BookedPage() {
   useFbTrack("PageView");
   const router = useRouter();
 
-  // Calendly posts a message to the parent window once a booking is made, which
-  // is how we send people to the confirmation page without relying on Calendly's
-  // own redirect setting.
+  // Calendly reports how tall its content is on every step. Growing the
+  // container to match is what keeps the widget from scrolling inside itself;
+  // the starting value is a tall-enough guess for the first paint.
+  const [calHeight, setCalHeight] = useState(1100);
+
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
-      if (
-        typeof e.origin === "string" &&
-        e.origin.includes("calendly.com") &&
-        e.data?.event === "calendly.event_scheduled"
-      ) {
+      if (typeof e.origin !== "string" || !e.origin.includes("calendly.com")) return;
+
+      // A booking sends people to the confirmation page, without relying on
+      // Calendly's own redirect setting.
+      if (e.data?.event === "calendly.event_scheduled") {
         router.push("/booked/confirmed");
+        return;
+      }
+
+      if (e.data?.event === "calendly.page_height") {
+        const reported = parseInt(String(e.data.payload?.height ?? ""), 10);
+        // Never shrink below the first-paint height, or short steps would leave
+        // a gap and tall ones would start scrolling again.
+        if (!Number.isNaN(reported)) setCalHeight((h) => Math.max(h, reported));
       }
     };
     window.addEventListener("message", onMessage);
@@ -62,6 +72,8 @@ export default function BookedPage() {
             <div
               className={`calendly-inline-widget ${styles.calEmbed}`}
               data-url={CALENDLY_EMBED}
+              data-resize="true"
+              style={{ height: calHeight }}
             />
           </div>
         </div>
