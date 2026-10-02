@@ -1,0 +1,236 @@
+/* Cash Flow Content application page, rendered at /cashflowcontent,
+   -organic and -cole. A CSS module rather than styled-jsx so the browser has
+   the styles before first paint; as styled-jsx the page flashed unstyled.
+   globals.css already paints html/body #030712, this page's background. */
+
+.cfcPage {
+  --black: #030712;
+  --card: #111827;
+  --card-border: #1f2937;
+  --blue: #00d9ff;
+  --blue-dim: #0088ff;
+  --white: #f5f2ed;
+  --muted: #9ca3af;
+  --body: #d1d5db;
+  background: var(--black);
+  color: var(--body);
+  line-height: 1.7;
+  min-height: 100vh;
+  font-family: inherit;
+  overflow-x: hidden;
+}
+.cfcPage section { padding: 0 20px; }
+
+/* Hero */
+.hero {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: 56px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+.logoContainer { margin-bottom: 34px; }
+.logo { display: inline-block; height: auto; }
+.hero h1 {
+  /* Fallback size; JS fits the exact size so it stays on two lines. */
+  font-size: clamp(2rem, 5.2vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  text-wrap: balance;
+}
+.headlineInner {
+  display: inline;
+}
+.accent {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dim) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero .sub {
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0 auto 36px;
+}
+.videoWrapper {
+  max-width: 860px;
+  margin: 0 auto 32px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 217, 255, 0.08);
+  background: #0a1120;
+}
+.wistiaEmbed { width: 100%; aspect-ratio: 16 / 9; }
+
+/* CTA button */
+.ctaBtn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dim) 100%);
+  color: #041016;
+  font-weight: 800;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  padding: 18px 44px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 30px rgba(0, 217, 255, 0.28);
+  text-transform: uppercase;
+}
+.ctaBtn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0, 217, 255, 0.42); }
+
+/* Eligibility */
+.eligibility {
+  max-width: 720px;
+  margin: 30px auto 0;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.eligibility strong { color: var(--white); }
+.formCallout {
+  margin-top: 22px;
+  font-weight: 700;
+  color: var(--white);
+  font-size: 1.2rem;
+}
+
+/* Waitlist / Typeform */
+.waitlist { max-width: 780px; margin: 28px auto 0; scroll-margin-top: 20px; }
+.typeformWrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+}
+.typeformWrapper [data-tf-live] {
+  width: 100%;
+  height: clamp(620px, 86vh, 860px);
+}
+/* Typeform injects the inner div + iframe at runtime, so they don't get
+   styled-jsx's scoped class — use :global() to reach them and force both
+   to fill the container (no dead space, no inner scroll). */
+.typeformWrapper :global([data-tf-live] > div),
+.typeformWrapper :global([data-tf-live] iframe) {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  border: 0;
+}
+
+/* Social proof */
+.socialProof { max-width: 1100px; margin: 72px auto 0; text-align: center; }
+.eyebrow {
+  color: var(--blue);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+.socialProof h2 {
+  color: var(--white);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.spSub { color: var(--muted); max-width: 640px; margin: 0 auto 40px; }
+.analyticsGrid {
+  columns: 3 240px;
+  column-gap: 16px;
+}
+.analyticsImg {
+  width: 100%;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  display: block;
+  break-inside: avoid;
+  background: var(--card);
+}
+
+/* Story + final */
+.story, .finalCta {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.12rem;
+}
+.story { margin-top: 72px; }
+.finalCta { margin-top: 20px; text-align: center; padding-bottom: 20px; }
+.story p, .finalCta p { margin-bottom: 20px; }
+.story p { color: var(--body); }
+.phaseLabel { color: var(--blue); font-weight: 800; }
+.phases { margin: 8px 0; }
+.quotes {
+  border-left: 3px solid var(--blue);
+  padding: 4px 0 4px 22px;
+  margin: 26px 0;
+}
+.quotes p { color: var(--white); font-style: italic; font-size: 1.2rem; margin-bottom: 8px; }
+.finalCta h2 {
+  color: var(--white);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  margin: 40px 0 20px;
+}
+.firstStep, .stayTuned { font-weight: 700; color: var(--white); }
+.reassurance {
+  background: linear-gradient(180deg, rgba(0, 217, 255, 0.06) 0%, transparent 100%);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin: 34px 0;
+}
+.reassurance p { margin-bottom: 12px; color: var(--white); }
+.reassurance p:last-child { color: var(--body); font-weight: 400; margin-bottom: 0; }
+.welcome-2 {
+  color: var(--white);
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin: 36px 0 18px;
+}
+.finalCta .ctaBtn { margin-top: 30px; }
+
+/* Footer */
+.footer {
+  max-width: 720px;
+  margin: 60px auto 0;
+  padding: 40px 20px 56px;
+  border-top: 1px solid var(--card-border);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.footer p { margin-bottom: 8px; }
+.disclaimer { font-size: 0.82rem; opacity: 0.8; }
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 640px) {
+  .analyticsGrid { columns: 2 150px; }
+  .hero { padding-top: 40px; }
+  .typeformWrapper iframe { height: 520px; }
+}
+
+.cfcPage :global(wistia-player) {
+  width: 100%;
+  display: block;
+}
+.cfcPage :global(wistia-player:not(:defined)) {
+  display: block;
+  filter: blur(5px);
+  padding-top: 56.25%;
+}
+
