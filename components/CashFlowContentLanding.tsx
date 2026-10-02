@@ -80,15 +80,18 @@ export default function CashFlowContentLanding({ typeformId }: { typeformId: str
   }, []);
 
   useEffect(() => {
+    // CSS modules hash these class names, so the observer has to look them up
+    // through `styles` — a literal ".reveal" matches nothing and would leave
+    // every revealed block stuck at opacity 0.
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
+          if (entry.isIntersecting) entry.target.classList.add(styles.visible);
         });
       },
       { threshold: 0.12 }
     );
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    document.querySelectorAll(`.${styles.reveal}`).forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
