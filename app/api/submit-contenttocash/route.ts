@@ -12,6 +12,7 @@ type Payload = {
   email?: string;
   phone?: string;
   would_invest?: string | null;
+  monthly_revenue?: string | null;
   sms_consent?: boolean;
   webinar_datetime?: string | null;
   webinar_display?: string | null;
@@ -70,6 +71,8 @@ export async function POST(req: Request) {
   // 2) Fire the dedicated Content-to-Cash Zapier webhook with the full payload.
   const webhookPayload = {
     ...row,
+    // Same answer as would_invest, under the name the new question asks.
+    monthly_revenue: body.monthly_revenue ?? body.would_invest ?? null,
     sms_consent: body.sms_consent ?? false,
     event: 'content-to-cash-masterclass',
     submitted_at: new Date().toISOString(),
