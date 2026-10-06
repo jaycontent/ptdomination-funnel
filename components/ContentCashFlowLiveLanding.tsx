@@ -65,17 +65,6 @@ const LEARN = [
   },
 ];
 
-// Monthly-revenue qualifier. Anyone at $5k/month or above is counted as
-// qualified and lands on the pixel-tracked confirmation.
-const REVENUE_OPTIONS = [
-  { value: "starting", label: "Just starting out", qualified: false },
-  { value: "0-5k", label: "$0\u2013$5k", qualified: false },
-  { value: "5k-10k", label: "$5k\u2013$10k", qualified: true },
-  { value: "10k-25k", label: "$10k\u2013$25k", qualified: true },
-  { value: "25k-50k", label: "$25k\u2013$50k", qualified: true },
-  { value: "50k+", label: "$50k+ a month", qualified: true },
-] as const;
-
 type UtmParams = {
   utm_source: string | null;
   utm_medium: string | null;
@@ -93,7 +82,7 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
   const hasLoaded = useRef(false);
   const formRef = useRef<HTMLDivElement>(null);
 
-  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", revenue: "" });
+  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "" });
   const [utm, setUtm] = useState<UtmParams>({
     utm_source: null,
     utm_medium: null,
@@ -131,7 +120,6 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const chosen = REVENUE_OPTIONS.find((o) => o.value === form.revenue);
     setSubmitting(true);
     setSubmitError("");
     let ok = false;
@@ -147,11 +135,8 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
           last_name: form.lastName,
           email: form.email,
           phone: form.phone,
-          // The answer still rides in would_invest: that is the column the
-          // table and the Zap already read. monthly_revenue carries the same
-          // value under a name that matches the new question.
-          would_invest: chosen?.label ?? "No answer",
-          monthly_revenue: chosen?.label ?? "No answer",
+          // The form no longer asks a qualifying question, so there is no
+          // answer to send. The columns stay in the table for the older rows.
           ...webinarFields,
           page_path: pagePath,
           ...utm,
@@ -166,8 +151,8 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
       setSubmitError("Something went wrong. Please try again.");
       return;
     }
-    // $5k/month and above -> pixel-tracked confirmation; below -> no-pixel duplicate.
-    router.push(chosen?.qualified ? `${basePath}/confirmation` : `${basePath}/confirmation-b`);
+    // Every registrant goes to the pixel-tracked confirmation now.
+    router.push(`${basePath}/confirmation`);
   };
 
   return (
@@ -379,29 +364,7 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
               required
             />
 
-            {/* Qualifier, same wording and options as the old Content-to-Cash
-                form. The answer decides which confirmation page they land on. */}
-            <div className={styles.investBlock} role="radiogroup" aria-label="Monthly revenue">
-              <p className={styles.investQ}>How much is your business generating a month?</p>
-              {REVENUE_OPTIONS.map((opt) => {
-                const selected = form.revenue === opt.value;
-                return (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    role="radio"
-                    aria-checked={selected}
-                    onClick={() => setForm({ ...form, revenue: opt.value })}
-                    className={`${styles.investOpt} ${selected ? styles.sel : ""}`}
-                  >
-                    <span className={styles.radioDot}>{selected && <span className={styles.radioInner} />}</span>
-                    <span className={styles.investOptLabel}>{opt.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            <button className={`${styles.btn} ${styles.submit}`} type="submit" disabled={submitting || !form.revenue}>
+            <button className={`${styles.btn} ${styles.submit}`} type="submit" disabled={submitting}>
               {submitting ? "SAVING YOUR SEAT…" : "SAVE MY SEAT (FREE)"}
             </button>
             {submitError && <div className={styles.formError}>{submitError}</div>}
