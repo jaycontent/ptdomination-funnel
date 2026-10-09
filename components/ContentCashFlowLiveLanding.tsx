@@ -4,21 +4,21 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Script from "next/script";
-import { getNextWebinarDateOnDays } from "@/lib/date";
+import { getNextWebinarDate } from "@/lib/date";
 import { useFbTrack } from "@/lib/useFbTrack";
 import styles from "./ContentCashFlowLiveLanding.module.css";
 
 const WISTIA_MEDIA_ID = "fcoxhrm1hr";
 const WISTIA_ASPECT = "1.8090452261306533";
 
-// This training runs Wednesdays at 4:30 PM PST. The other webinar pages keep
-// the shared Mon/Thu schedule from getNextWebinarDate().
-const WEBINAR_DAYS = [3]; // Wednesday
-const webinar = getNextWebinarDateOnDays(WEBINAR_DAYS);
+// Mondays and Thursdays at 4:30 PM PT / 7:30 PM ET, the schedule every
+// webinar page shares. getNextWebinarDate rolls to the next day in the pair as
+// soon as the current one's start time passes.
+const webinar = getNextWebinarDate();
 
 // Webinar-start fields for CRM mapping, matching the format the other PT
 // Domination webinar pages send (webinar_display + a GHL "webinar<month><day>" tag).
-function buildWebinarFields(w: ReturnType<typeof getNextWebinarDateOnDays>) {
+function buildWebinarFields(w: ReturnType<typeof getNextWebinarDate>) {
   const d = new Date(w.iso);
   const tzAbbr = (tz: string) =>
     new Intl.DateTimeFormat("en-US", { timeZone: tz, timeZoneName: "short" })

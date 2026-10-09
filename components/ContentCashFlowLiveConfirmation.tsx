@@ -2,15 +2,15 @@
 
 import { useEffect, useRef } from "react";
 import Script from "next/script";
-import { getNextWebinarDateOnDays } from "@/lib/date";
+import { getNextWebinarDate } from "@/lib/date";
 import styles from "./ContentCashFlowLiveConfirmation.module.css";
 
 const WISTIA_MEDIA_ID = "2yyxfjrgkv";
 const WISTIA_ASPECT = "1.8045112781954886";
 const INSTAGRAM_URL = "https://www.instagram.com/therealbrianmark/";
 
-// Wednesdays at 4:30 PM PST, matching the landing page.
-const webinar = getNextWebinarDateOnDays([3]);
+// Mondays and Thursdays at 4:30 PM PT / 7:30 PM ET, matching the landing page.
+const webinar = getNextWebinarDate();
 
 // No add-to-calendar button here: Zoom issues each registrant their own join
 // link, so there is no shared URL a calendar event could point at.
