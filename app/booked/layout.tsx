@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Book Your Call — PT Domination',
+  title: 'Application Received — Cash Flow Content',
   description:
-    'Pick a time for your High Performance Content strategy call with the PT Domination team.',
+    "You've applied to Cash Flow Content. Here are the next steps to confirm your application with Brian Mark.",
   // Only qualified applicants are sent here, so keep it out of search results.
   robots: { index: false, follow: false },
 };
