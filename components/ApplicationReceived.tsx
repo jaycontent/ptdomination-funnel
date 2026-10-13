@@ -219,7 +219,7 @@ export default function ApplicationReceived({
           <p>Then this is the moment that you’ve been waiting for.</p>
           <p>
             Cash Flow Content is the solution that you’ve been waiting for, and we’re excited to invite the
-            founding members to join us on <strong>{joinDate}</strong>.
+            founding members to join us <strong>{joinDate}</strong>.
           </p>
           <p className={styles.highlight}>
             {copy.confirmLine}
