@@ -25,6 +25,28 @@ type Payload = {
   utm_term?: string | null;
 };
 
+// One rolled-up label for GHL to tag on, instead of making the automation
+// interpret five UTM columns. Derived here rather than in the page so both
+// registration URLs get the same answer and a dropped client param cannot
+// change it.
+//
+// Paid is detected two independent ways -- utm_medium=paid, or a long numeric
+// Meta campaign id -- so if the ad URL parameters are edited and one signal
+// breaks, paid traffic still classifies as paid instead of silently falling
+// through to Organic.
+function deriveTrafficSource(body: Payload): string {
+  const medium = (body.utm_medium ?? '').trim().toLowerCase();
+  const source = (body.utm_source ?? '').trim().toLowerCase();
+  const campaign = (body.utm_campaign ?? '').trim();
+
+  if (medium === 'paid' || /^[0-9]{10,}$/.test(campaign)) return 'Facebook Ads';
+  if (medium === 'organic' || medium === 'bio') return 'Organic';
+  if (medium === 'owned' || source === 'sms' || source === 'email') return 'Email/SMS';
+  // No UTMs at all: treat as organic. Tag owned-media links with
+  // utm_medium=owned so blasts do not land in this bucket.
+  return 'Organic';
+}
+
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -58,6 +80,7 @@ export async function POST(req: Request) {
     utm_campaign: body.utm_campaign ?? null,
     utm_content: body.utm_content ?? null,
     utm_term: body.utm_term ?? null,
+    traffic_source: deriveTrafficSource(body),
   };
 
   // 1) Store in Supabase (best-effort — a DB hiccup must not block the opt-in).
