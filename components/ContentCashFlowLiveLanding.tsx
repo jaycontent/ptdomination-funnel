@@ -33,7 +33,9 @@ function buildWebinarFields(w: ReturnType<typeof getNextWebinarDate>) {
   return {
     webinar_datetime: w.iso,
     webinar_display: `${w.dayName}, ${monthName} ${day}, at 4:30 PM ${pt} and 7:30 PM ${et}`,
-    webinar_month_and_date: `webinar${monthName.toLowerCase()}${day}`,
+    // The "ctc" suffix keeps Content-to-Cash tags apart from tags last
+    // year's webinars left on the same calendar date.
+    webinar_month_and_date: `webinar${monthName.toLowerCase()}${day}ctc`,
   };
 }
 const webinarFields = buildWebinarFields(webinar);
