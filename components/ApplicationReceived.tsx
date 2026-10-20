@@ -52,20 +52,24 @@ const COPY = {
 
 // joinDate is the launch date in the letter; variant switches between the
 // application and post-booking copy; pixelEvent lets the booking confirmation
-// report a Schedule instead of an application submit.
+// report a Schedule instead of an application submit. customPixelEvent adds a
+// non-standard event alongside it, sent via trackCustom.
 export default function ApplicationReceived({
   joinDate = "August 07th",
   variant = "application",
   pixelEvent = "SubmitApplication",
+  customPixelEvent = "",
   wistiaId = DEFAULT_WISTIA_ID,
 }: {
   joinDate?: string;
   variant?: keyof typeof COPY;
   pixelEvent?: string;
+  customPixelEvent?: string;
   wistiaId?: string;
 }) {
   const copy = COPY[variant];
   useFbTrack(pixelEvent);
+  useFbTrack(customPixelEvent, "trackCustom");
   const [done, setDone] = useState<boolean[]>([false, false]);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const hasLoadedVideo = useRef(false);
