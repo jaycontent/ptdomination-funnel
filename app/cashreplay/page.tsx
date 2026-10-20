@@ -5,7 +5,7 @@ import Image from "next/image";
 import Script from "next/script";
 
 const CALENDLY_URL = 'https://calendly.com/d/cyrh-p48-nnb/strategy-meeting-with-pt-dom';
-const WISTIA_MEDIA_ID = 'gw5i6ydl0v';
+const WISTIA_MEDIA_ID = 'cy1k8t6c1u';
 const WISTIA_ASPECT = '1.893491124260355';
 
 function openCalendly() {
