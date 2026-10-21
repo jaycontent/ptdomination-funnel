@@ -105,14 +105,36 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
 
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
-    setUtm({
+    const params = {
       utm_source: p.get("utm_source"),
       utm_medium: p.get("utm_medium"),
       utm_campaign: p.get("utm_campaign"),
       utm_content: p.get("utm_content"),
       utm_term: p.get("utm_term"),
-    });
+    };
+    setUtm(params);
     setPagePath(window.location.pathname);
+
+    // Log the visit, so the opt-in rate has a denominator read from the same
+    // URL params as the registration it will be divided into. Entirely
+    // fire-and-forget: the response is ignored and every failure is swallowed,
+    // because nothing here is worth showing a visitor an error over.
+    try {
+      const KEY = "ctc_view_logged";
+      if (!sessionStorage.getItem(KEY)) {
+        // Random per tab, so a refresh can be collapsed with
+        // count(distinct session_id) rather than inflating the view count.
+        const sid =
+          (crypto.randomUUID?.() ?? String(Date.now()) + Math.random().toString(36).slice(2));
+        sessionStorage.setItem(KEY, sid);
+        fetch("/api/track-view", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          keepalive: true,
+          body: JSON.stringify({ ...params, path: window.location.pathname, session_id: sid }),
+        }).catch(() => {});
+      }
+    } catch {}
   }, []);
 
   const scrollToForm = (e: React.MouseEvent) => {
