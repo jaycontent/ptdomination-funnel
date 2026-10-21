@@ -6,6 +6,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const TABLE = 'page_views';
+const CALL_FUNNEL_VIEW_URL = 'https://vvfypjlrupttjuoaxeuy.supabase.co/functions/v1/page-view';
 
 type Payload = {
   path?: string | null;
@@ -41,12 +42,25 @@ export async function POST(req: Request) {
     utm_term: trim(body.utm_term),
   };
 
+  // Cash Flow Content visits also go to the Call Funnel dashboard (launchteamalpha.com), which
+  // keeps its own copy so it can count LP visitors. Run alongside the insert, capped at a few
+  // seconds, and ignored on failure like everything else here.
+  const forward = row.path?.startsWith('/cashflowcontent')
+    ? fetch(CALL_FUNNEL_VIEW_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(row),
+        signal: AbortSignal.timeout(3000),
+      }).catch((err) => console.error('[track-view] forward failed:', err))
+    : null;
+
   try {
     const { error } = await getSupabaseAdmin().from(TABLE).insert(row);
     if (error) console.error('[track-view] insert failed:', error.message);
   } catch (err) {
     console.error('[track-view] client error:', err);
   }
+  await forward;
 
   return NextResponse.json({ ok: true }, { status: 200 });
 }

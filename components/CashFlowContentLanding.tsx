@@ -79,6 +79,33 @@ export default function CashFlowContentLanding({ typeformId }: { typeformId: str
     }
   }, []);
 
+  // Log the visit for the Call Funnel dashboard (LP visitors, paid vs organic by UTM). Same
+  // fire-and-forget pattern as the Content to Cash page: the response is ignored and every
+  // failure is swallowed, and a per-tab marker keeps a refresh from counting twice.
+  useEffect(() => {
+    try {
+      const KEY = "cfc_view_logged";
+      if (sessionStorage.getItem(KEY)) return;
+      const sid = crypto.randomUUID?.() ?? String(Date.now()) + Math.random().toString(36).slice(2);
+      sessionStorage.setItem(KEY, sid);
+      const p = new URLSearchParams(window.location.search);
+      fetch("/api/track-view", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        keepalive: true,
+        body: JSON.stringify({
+          path: window.location.pathname,
+          session_id: sid,
+          utm_source: p.get("utm_source"),
+          utm_medium: p.get("utm_medium"),
+          utm_campaign: p.get("utm_campaign"),
+          utm_content: p.get("utm_content"),
+          utm_term: p.get("utm_term"),
+        }),
+      }).catch(() => {});
+    } catch {}
+  }, []);
+
   useEffect(() => {
     // CSS modules hash these class names, so the observer has to look them up
     // through `styles` — a literal ".reveal" matches nothing and would leave
