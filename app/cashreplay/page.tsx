@@ -5,8 +5,8 @@ import Image from "next/image";
 import Script from "next/script";
 
 const CALENDLY_URL = 'https://calendly.com/d/cyrh-p48-nnb/strategy-meeting-with-pt-dom';
-const WISTIA_MEDIA_ID = 'cy1k8t6c1u';
-const WISTIA_ASPECT = '1.893491124260355';
+const WISTIA_MEDIA_ID = '9p00pmmpsu';
+const WISTIA_ASPECT = '1.7173524150268336';
 
 function openCalendly() {
   // @ts-ignore
@@ -525,7 +525,7 @@ export default function CashReplayPage() {
             overflow: hidden;
             border: 1px solid var(--card-border);
             background: var(--card);
-            aspect-ratio: 1.893491124260355;
+            aspect-ratio: 1.7173524150268336;
           }
 
           .video-wrapper wistia-player {
