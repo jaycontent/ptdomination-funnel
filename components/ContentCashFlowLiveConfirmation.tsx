@@ -9,7 +9,7 @@ const WISTIA_MEDIA_ID = "2yyxfjrgkv";
 const WISTIA_ASPECT = "1.8045112781954886";
 const INSTAGRAM_URL = "https://www.instagram.com/therealbrianmark/";
 
-// Mondays and Thursdays at 4:30 PM PT / 7:30 PM ET, matching the landing page.
+// Mondays and Thursdays at 3:30 PM PT / 6:30 PM ET, matching the landing page.
 const webinar = getNextWebinarDate();
 
 // No add-to-calendar button here: Zoom issues each registrant their own join
@@ -116,7 +116,7 @@ export default function ContentCashFlowLiveConfirmation({
               <div className={styles.val}>
                 {webinar.longDisplay}
                 <br />
-                7:30 PM ET / 4:30 PM PT
+                6:30 PM ET / 3:30 PM PT
               </div>
             </div>
             <div className={styles.card}>

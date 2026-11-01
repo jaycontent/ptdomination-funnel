@@ -11,7 +11,7 @@ import styles from "./ContentCashFlowLiveLanding.module.css";
 const WISTIA_MEDIA_ID = "fcoxhrm1hr";
 const WISTIA_ASPECT = "1.8090452261306533";
 
-// Mondays and Thursdays at 4:30 PM PT / 7:30 PM ET, the schedule every
+// Mondays and Thursdays at 3:30 PM PT / 6:30 PM ET, the schedule every
 // webinar page shares. getNextWebinarDate rolls to the next day in the pair as
 // soon as the current one's start time passes.
 const webinar = getNextWebinarDate();
@@ -32,7 +32,7 @@ function buildWebinarFields(w: ReturnType<typeof getNextWebinarDate>) {
   const day = (parts[1] || "").replace(/\D/g, "");
   return {
     webinar_datetime: w.iso,
-    webinar_display: `${w.dayName}, ${monthName} ${day}, at 4:30 PM ${pt} and 7:30 PM ${et}`,
+    webinar_display: `${w.dayName}, ${monthName} ${day}, at 3:30 PM ${pt} and 6:30 PM ${et}`,
     // The "ctc" suffix keeps Content-to-Cash tags apart from tags last
     // year's webinars left on the same calendar date.
     webinar_month_and_date: `webinar${monthName.toLowerCase()}${day}ctc`,
@@ -191,7 +191,7 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
       <div className={styles.topbar}>
         Free live training for business owners &nbsp;·&nbsp;{" "}
         <span>
-          {webinar.longDisplay} at 7:30 PM ET
+          {webinar.longDisplay} at 6:30 PM ET
         </span>
       </div>
 
@@ -255,7 +255,7 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
               <div className={styles.val}>
                 {webinar.longDisplay}
                 <br />
-                7:30 PM ET / 4:30 PM PT
+                6:30 PM ET / 3:30 PM PT
               </div>
             </div>
             <div className={styles.card}>
@@ -398,7 +398,7 @@ export default function ContentCashFlowLiveLanding({ basePath }: { basePath: str
           </form>
 
           <div className={`${styles.micro} ${styles.muted}`}>
-            Live on Zoom · {webinar.longDisplay} at 7:30 PM ET · Free
+            Live on Zoom · {webinar.longDisplay} at 6:30 PM ET · Free
           </div>
         </div>
       </section>

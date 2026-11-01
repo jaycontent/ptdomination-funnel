@@ -1,9 +1,10 @@
-// Webinar days: 1 = Monday, 4 = Thursday. Time: 4:30 PM PST (UTC-7).
+// Webinar days: 1 = Monday, 4 = Thursday. Time: 3:30 PM PST / 6:30 PM EST.
+// 15:30 at UTC-8 is 23:30 UTC, the same instant the Zoom webinars are set to.
 const WEBINAR_DAYS = [1, 4]; // Mon, Thu
-const WEBINAR_HOUR_PST = 16;
+const WEBINAR_HOUR_PST = 15;
 const WEBINAR_MINUTE_PST = 30;
 const WEBINAR_DURATION_MINUTES = 60;
-const PST_OFFSET_HOURS = -7;
+const PST_OFFSET_HOURS = -8;
 
 export interface WebinarDate {
   iso: string;         // Full ISO string with tz offset, for countdown
@@ -20,7 +21,7 @@ export function getNextWebinarDate(): WebinarDate {
   return getNextWebinarDateOnDays(WEBINAR_DAYS);
 }
 
-// Same 4:30 PM PST slot, but on the weekdays you pass in (0 = Sunday).
+// Same 3:30 PM PST slot, but on the weekdays you pass in (0 = Sunday).
 // /contentcashflowlive runs Wednesdays, so it calls this with [3].
 export function getNextWebinarDateOnDays(days: number[]): WebinarDate {
   const now = new Date();
@@ -30,7 +31,7 @@ export function getNextWebinarDateOnDays(days: number[]): WebinarDate {
   const nowPstMs = now.getTime() + pstOffset * 60 * 1000;
   const nowPst = new Date(nowPstMs);
 
-  // Find the next webinar day that hasn't passed 4:30 PM PST yet
+  // Find the next webinar day that has not passed 3:30 PM PST yet
   for (let daysAhead = 0; daysAhead <= 7; daysAhead++) {
     const candidatePstMs = nowPstMs + daysAhead * 24 * 60 * 60 * 1000;
     const candidatePst = new Date(candidatePstMs);
@@ -50,7 +51,7 @@ export function getNextWebinarDateOnDays(days: number[]): WebinarDate {
     if (candidateStart.getTime() > now.getTime()) {
       const candidateEnd = new Date(candidateStart.getTime() + WEBINAR_DURATION_MINUTES * 60 * 1000);
 
-      const pstOffsetStr = "-07:00";
+      const pstOffsetStr = "-08:00";
       const y = candidatePst.getUTCFullYear();
       const m = String(candidatePst.getUTCMonth() + 1).padStart(2, "0");
       const d = String(candidatePst.getUTCDate()).padStart(2, "0");
