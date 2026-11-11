@@ -12,7 +12,7 @@ import styles from "./confirmation.module.css";
 
 // The confirmation-page video. Leave empty and the frame shows a neutral
 // placeholder rather than a broken embed.
-const WISTIA_MEDIA_ID = "";
+const WISTIA_MEDIA_ID = "czmuvggzj0";
 const WISTIA_ASPECT = "1.7777777777777777";
 
 // Saturday Nov 21 and Sunday Nov 22, 2026. The calendar end date is exclusive,
