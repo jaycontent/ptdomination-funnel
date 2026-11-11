@@ -19,8 +19,8 @@ const WISTIA_ASPECT = "1.8045112781954886";
 
 // Dates and times as they should read on the page. Leave a value empty and the
 // page simply omits it rather than printing a placeholder at a visitor.
-const EVENT_DATES_SHORT = ""; // e.g. "Dec 3–4"
-const EVENT_DATES_LONG = ""; // e.g. "December 3rd & 4th"
+const EVENT_DATES_SHORT = "Nov 21–22";
+const EVENT_DATES_LONG = "Saturday, November 21st & Sunday, November 22nd";
 const EVENT_TIME = ""; // e.g. "9:00 AM PST / 12:00 PM EST"
 
 // Tag the registration carries into GHL. Keeps this summit's contacts apart
