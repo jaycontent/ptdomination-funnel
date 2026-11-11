@@ -14,8 +14,8 @@ import styles from "./summit.module.css";
 // in the video frame instead of a broken embed; paste the Wistia media id here
 // and the player takes over. Set the aspect to the one the Wistia embed snippet
 // gives for that video.
-const WISTIA_MEDIA_ID = "";
-const WISTIA_ASPECT = "1.7777777777777777";
+const WISTIA_MEDIA_ID = "4upcy8tgvw";
+const WISTIA_ASPECT = "1.8045112781954886";
 
 // Dates and times as they should read on the page. Leave a value empty and the
 // page simply omits it rather than printing a placeholder at a visitor.
