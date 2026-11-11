@@ -102,24 +102,6 @@ const GOOGLE_CAL =
   "&details=" +
   encodeURIComponent(CAL_DETAILS);
 
-const OUTLOOK_CAL = isTimed
-  ? "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=" +
-    encodeURIComponent(CAL_TITLE) +
-    `&startdt=${toUtcStamp(CAL_START, START_TIME_PT)}&enddt=${toUtcStamp(
-      CAL_START,
-      START_TIME_PT,
-      DURATION_MINUTES
-    )}&location=` +
-    encodeURIComponent(ZOOM_URL) +
-    "&body=" +
-    encodeURIComponent(CAL_DETAILS)
-  : "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=" +
-    encodeURIComponent(CAL_TITLE) +
-    `&allday=true&startdt=${dashed(CAL_START)}&enddt=${dashed(CAL_END_EXCLUSIVE)}&location=` +
-    encodeURIComponent(ZOOM_URL) +
-    "&body=" +
-    encodeURIComponent(CAL_DETAILS);
-
 // Apple reads the .ics, so it carries the Zoom link as LOCATION and URL as
 // well as in the notes, and repeats daily twice when a start time is set.
 const ICS = [
@@ -263,9 +245,6 @@ export default function SummitConfirmationPage() {
           <div className={styles.calLinks}>
             <a className={styles.calLink} href={GOOGLE_CAL} target="_blank" rel="noopener noreferrer">
               Google
-            </a>
-            <a className={styles.calLink} href={OUTLOOK_CAL} target="_blank" rel="noopener noreferrer">
-              Outlook
             </a>
             <a className={styles.calLink} href={APPLE_CAL} download="virtual-summit.ics">
               Apple

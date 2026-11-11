@@ -175,7 +175,7 @@
   margin: 0 auto 18px;
   max-width: 460px;
 }
-.calLinks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.calLinks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .calLink {
   display: block;
   text-align: center;
