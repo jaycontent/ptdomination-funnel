@@ -1,7 +1,15 @@
 import { NextResponse } from 'next/server';
+import { getSupabaseAdmin } from '@/lib/supabase-admin';
+import { deriveTrafficSource } from '@/lib/trafficSource';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+const TABLE = 'summit_registrations';
+
+// What /virtualsummit (the 2026 August event) has always sent. The newer
+// /summit page names its own event and tag in the payload.
+const DEFAULT_EVENT = 'online-trainer-virtual-summit';
 
 type SummitPayload = {
   first_name?: string;
@@ -9,6 +17,8 @@ type SummitPayload = {
   email?: string;
   phone?: string;
   sms_consent?: boolean;
+  event?: string | null;
+  summit_tag?: string | null;
   page_path?: string | null;
   utm_source?: string | null;
   utm_medium?: string | null;
@@ -34,23 +44,34 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'A valid email is required' }, { status: 400 });
   }
 
-  const registration = {
+  // Columns that mirror the summit_registrations table.
+  const row = {
     first_name: (body.first_name ?? '').trim() || null,
     last_name: (body.last_name ?? '').trim() || null,
     email,
     phone: (body.phone ?? '').trim() || null,
     sms_consent: body.sms_consent ?? false,
-    event: 'online-trainer-virtual-summit',
+    event: (body.event ?? '').trim() || DEFAULT_EVENT,
+    summit_tag: (body.summit_tag ?? '').trim() || null,
     page_path: body.page_path ?? null,
     utm_source: body.utm_source ?? null,
     utm_medium: body.utm_medium ?? null,
     utm_campaign: body.utm_campaign ?? null,
     utm_content: body.utm_content ?? null,
     utm_term: body.utm_term ?? null,
-    submitted_at: new Date().toISOString(),
+    traffic_source: deriveTrafficSource(body),
   };
 
-  // Fire the dedicated summit Zapier webhook (separate from the livetraining hook).
+  // 1) Store in Supabase (best-effort — a DB hiccup must not block the opt-in).
+  try {
+    const { error } = await getSupabaseAdmin().from(TABLE).insert(row);
+    if (error) console.error('[submit-summit] Supabase insert failed:', error.message);
+  } catch (err) {
+    console.error('[submit-summit] Supabase client error:', err);
+  }
+
+  // 2) Fire the dedicated summit Zapier webhook (separate from the livetraining hook).
+  const webhookPayload = { ...row, submitted_at: new Date().toISOString() };
   const zapUrl = process.env.SUMMIT_WEBHOOK_URL;
   if (!zapUrl) {
     console.error('[submit-summit] SUMMIT_WEBHOOK_URL is not set — registration was NOT forwarded.');
@@ -59,7 +80,7 @@ export async function POST(req: Request) {
       const res = await fetch(zapUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(registration),
+        body: JSON.stringify(webhookPayload),
       });
       if (!res.ok) {
         console.error('[submit-summit] Webhook responded', res.status);
