@@ -21,6 +21,58 @@ const CAL_START = "20261121";
 const CAL_END_EXCLUSIVE = "20261123";
 const EVENT_WHEN = "Saturday, November 21st & Sunday, November 22nd, 2026";
 
+// The Zoom room registrants join. It rides along in every calendar event, as
+// the location and in the notes, so the link is on the invite itself.
+const ZOOM_URL = "https://us02web.zoom.us/j/5173145585";
+
+// Start time in Pacific, as "HH:MM" on a 24-hour clock, plus how many minutes
+// each day runs. Leave START_TIME_PT empty and the calendar entries stay
+// all-day events covering both days — which is what they are until the start
+// time is known, rather than a guessed hour in someone's calendar.
+const START_TIME_PT = "";
+const DURATION_MINUTES = 240;
+
+// Nov 21-22 2026 is after US daylight saving ends on Nov 1, so Pacific is
+// UTC-8 on both days. Fixed offset is safe for these two dates.
+const PT_OFFSET_HOURS = 8;
+
+function toUtcStamp(yyyymmdd: string, hhmm: string, addMinutes = 0): string {
+  const [h, m] = hhmm.split(":").map(Number);
+  const d = new Date(
+    Date.UTC(
+      Number(yyyymmdd.slice(0, 4)),
+      Number(yyyymmdd.slice(4, 6)) - 1,
+      Number(yyyymmdd.slice(6, 8)),
+      h + PT_OFFSET_HOURS,
+      m
+    )
+  );
+  d.setUTCMinutes(d.getUTCMinutes() + addMinutes);
+  return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+}
+
+const isTimed = Boolean(START_TIME_PT);
+
+// RFC 5545 caps a content line at 75 octets; longer ones fold onto a
+// continuation line beginning with a single space. Some calendar clients
+// reject an over-long line outright, so fold before writing the file.
+function foldIcsLine(line: string): string {
+  const bytes = Array.from(new TextEncoder().encode(line));
+  if (bytes.length <= 75) return line;
+  const out: string[] = [];
+  let i = 0;
+  let limit = 75;
+  while (i < bytes.length) {
+    let take = Math.min(limit, bytes.length - i);
+    // Never split a multi-byte character: back off to a boundary byte.
+    while (take > 0 && i + take < bytes.length && (bytes[i + take] & 0xc0) === 0x80) take--;
+    out.push(new TextDecoder().decode(new Uint8Array(bytes.slice(i, i + take))));
+    i += take;
+    limit = 74; // continuation lines carry a leading space
+  }
+  return out.join("\r\n ");
+}
+
 // Brian asks registrants to DM the word SUMMIT to confirm. ig.me opens the
 // message thread directly instead of dropping them on the profile.
 const INSTAGRAM_DM_URL = "https://ig.me/m/therealbrianmark";
@@ -28,35 +80,77 @@ const INSTAGRAM_HANDLE = "@therealbrianmark";
 
 const CAL_TITLE = "Online Trainer Virtual Summit";
 const CAL_DETAILS =
-  "Free 2-day Online Trainer Virtual Summit with Brian Mark. Your Zoom link is in your email and texts.";
+  "Free 2-day Online Trainer Virtual Summit with Brian Mark.\n\nJoin on Zoom: " +
+  ZOOM_URL +
+  "\n\nNo replay guaranteed \u2014 join live.";
 
 const dashed = (d: string) => `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`;
+
+// Both days in one entry. Timed entries repeat daily twice (Sat and Sun) so a
+// registrant gets both days from a single tap; all-day entries span the range.
+const GOOGLE_DATES = isTimed
+  ? `${toUtcStamp(CAL_START, START_TIME_PT)}/${toUtcStamp(CAL_START, START_TIME_PT, DURATION_MINUTES)}`
+  : `${CAL_START}/${CAL_END_EXCLUSIVE}`;
 
 const GOOGLE_CAL =
   "https://www.google.com/calendar/render?action=TEMPLATE&text=" +
   encodeURIComponent(CAL_TITLE) +
-  `&dates=${CAL_START}/${CAL_END_EXCLUSIVE}&details=` +
+  `&dates=${GOOGLE_DATES}` +
+  (isTimed ? "&recur=" + encodeURIComponent("RRULE:FREQ=DAILY;COUNT=2") : "") +
+  "&location=" +
+  encodeURIComponent(ZOOM_URL) +
+  "&details=" +
   encodeURIComponent(CAL_DETAILS);
 
-const OUTLOOK_CAL =
-  "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=" +
-  encodeURIComponent(CAL_TITLE) +
-  `&allday=true&startdt=${dashed(CAL_START)}&enddt=${dashed(CAL_END_EXCLUSIVE)}&body=` +
-  encodeURIComponent(CAL_DETAILS);
+const OUTLOOK_CAL = isTimed
+  ? "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=" +
+    encodeURIComponent(CAL_TITLE) +
+    `&startdt=${toUtcStamp(CAL_START, START_TIME_PT)}&enddt=${toUtcStamp(
+      CAL_START,
+      START_TIME_PT,
+      DURATION_MINUTES
+    )}&location=` +
+    encodeURIComponent(ZOOM_URL) +
+    "&body=" +
+    encodeURIComponent(CAL_DETAILS)
+  : "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=" +
+    encodeURIComponent(CAL_TITLE) +
+    `&allday=true&startdt=${dashed(CAL_START)}&enddt=${dashed(CAL_END_EXCLUSIVE)}&location=` +
+    encodeURIComponent(ZOOM_URL) +
+    "&body=" +
+    encodeURIComponent(CAL_DETAILS);
 
+// Apple reads the .ics, so it carries the Zoom link as LOCATION and URL as
+// well as in the notes, and repeats daily twice when a start time is set.
 const ICS = [
   "BEGIN:VCALENDAR",
   "VERSION:2.0",
+  "CALSCALE:GREGORIAN",
+  "METHOD:PUBLISH",
   "PRODID:-//PT Domination//Virtual Summit//EN",
   "BEGIN:VEVENT",
   "UID:online-trainer-virtual-summit-2026@ptdomination",
-  `DTSTART;VALUE=DATE:${CAL_START}`,
-  `DTEND;VALUE=DATE:${CAL_END_EXCLUSIVE}`,
+  `DTSTAMP:${toUtcStamp(CAL_START, "00:00")}`,
+  ...(isTimed
+    ? [
+        `DTSTART:${toUtcStamp(CAL_START, START_TIME_PT)}`,
+        `DTEND:${toUtcStamp(CAL_START, START_TIME_PT, DURATION_MINUTES)}`,
+        "RRULE:FREQ=DAILY;COUNT=2",
+      ]
+    : [
+        `DTSTART;VALUE=DATE:${CAL_START}`,
+        `DTEND;VALUE=DATE:${CAL_END_EXCLUSIVE}`,
+      ]),
   "SUMMARY:" + CAL_TITLE,
-  "DESCRIPTION:" + CAL_DETAILS,
+  "LOCATION:" + ZOOM_URL,
+  "URL:" + ZOOM_URL,
+  // Literal \n is how a newline is escaped inside an ICS text value.
+  "DESCRIPTION:" + CAL_DETAILS.replace(/\n/g, "\\n"),
   "END:VEVENT",
   "END:VCALENDAR",
-].join("\r\n");
+]
+  .map(foldIcsLine)
+  .join("\r\n");
 const APPLE_CAL = "data:text/calendar;charset=utf8," + encodeURIComponent(ICS);
 
 export default function SummitConfirmationPage() {
