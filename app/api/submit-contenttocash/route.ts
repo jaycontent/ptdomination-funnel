@@ -17,6 +17,7 @@ type Payload = {
   sms_consent?: boolean;
   webinar_datetime?: string | null;
   webinar_display?: string | null;
+  webinar_day?: string | null;
   webinar_month_and_date?: string | null;
   page_path?: string | null;
   utm_source?: string | null;
@@ -73,6 +74,9 @@ export async function POST(req: Request) {
   // 2) Fire the dedicated Content-to-Cash Zapier webhook with the full payload.
   const webhookPayload = {
     ...row,
+    // Weekday on its own, for GHL texts/emails. Not a column on the table —
+    // webinar_datetime already carries the day for reporting.
+    webinar_day: body.webinar_day ?? null,
     // Same answer as would_invest, under the name the new question asks.
     monthly_revenue: body.monthly_revenue ?? body.would_invest ?? null,
     sms_consent: body.sms_consent ?? false,
