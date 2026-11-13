@@ -24,8 +24,8 @@ const EVENT_DATES_LONG = "Saturday, November 21st & Sunday, November 22nd";
 const EVENT_TIME = ""; // e.g. "9:00 AM PST / 12:00 PM EST"
 
 // Tag the registration carries into GHL. Keeps this summit's contacts apart
-// from the ones last year's events left behind.
-const SUMMIT_TAG = "virtualsummit2026";
+// from the ones earlier events left behind on the same dates.
+const SUMMIT_TAG = "virtualsummitnovember";
 const EVENT_KEY = "online-trainer-virtual-summit-2026";
 
 // ───────────────────────────────────────────────────────────────────────────
